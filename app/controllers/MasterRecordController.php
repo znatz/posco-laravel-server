@@ -12,7 +12,9 @@ class MasterRecordController extends \BaseController {
 		//
 	}
 
-        public function getIndex() {}
+        public function getIndex() {
+            return View::make('hello');
+        }
 
 
 	/**

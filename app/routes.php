@@ -17,3 +17,10 @@ Route::get('/', function()
 });
 
 Route::controller('/Master', "MasterRecordController");
+
+Route::get('/register', function()
+{
+    return View::make('registration');
+});
+
+//Route::resource('BTAMAS', 'BTAMAsController');
