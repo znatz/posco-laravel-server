@@ -23,4 +23,4 @@ Route::get('/register', function()
     return View::make('registration');
 });
 
-//Route::resource('BTAMAS', 'BTAMAsController');
+Route::resource('employees', 'EmployeesController');
