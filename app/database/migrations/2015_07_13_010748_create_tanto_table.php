@@ -12,9 +12,9 @@ class CreateTantoTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('BTAMAS', function(Blueprint $table)
+		Schema::create('BTAMAS', function(Blueprint $table)
 		{
-            $table->text("id");
+            $table->increments("id");
             $table->text("name");
 		});
 	}
@@ -26,7 +26,7 @@ class CreateTantoTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('BTAMAS', function(Blueprint $table)
+		Schema::drop('BTAMAS', function(Blueprint $table)
 		{
 		});
 	}
