@@ -8,6 +8,14 @@ class Employee extends \Eloquent {
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = [];
+    protected  $table = "BTAMAS";
+    protected $fillable = ["name"];
+    public $timestamps = false;
+
+    public static function store($name) {
+        $e = new Employee();
+        $e->name = $name;
+        $e->save();
+}
 
 }
