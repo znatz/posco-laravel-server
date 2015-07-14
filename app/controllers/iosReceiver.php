@@ -16,6 +16,7 @@ class iosReceiver extends \BaseController
             $d->receiptNo = $m["receiptNo"];
             $d->save();
         }
+        unlink($f);
     }
 
     public function index()

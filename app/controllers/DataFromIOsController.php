@@ -104,4 +104,10 @@ class DataFromIOsController extends \BaseController {
 		return Redirect::route('datafromios.index');
 	}
 
+    public function clear()
+    {
+        Datafromio::truncate();
+        return Redirect::route('dataFromIOs.index');
+    }
+
 }

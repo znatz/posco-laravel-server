@@ -8,6 +8,24 @@
     <title>HandyPOSサーバー</title>
 </head>
 <body>
-@yield('contents')
+<div class="container">
+@include('layout.navbar')
+    <div class="row well well-lg">
+        <div class="col-xs-7">
+            @yield('contents')
+        </div>
+        <div class="col-xs-3">
+            @yield('contents2')
+        </div>
+    </div>
+     <div class="row well well-lg">
+        <div class="col-xs-3">
+            @yield('contents3')
+        </div>
+        <div class="col-xs-7">
+            @yield('contents4')
+        </div>
+    </div>
+</div>
 </body>
 </html>

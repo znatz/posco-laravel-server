@@ -26,3 +26,6 @@ Route::get('/register', function()
 Route::resource('employees', 'EmployeesController');
 Route::post('/iosReceiver', "iosReceiver@index");
 Route::resource('dataFromIOs', 'DataFromIOsController');
+Route::post('dataFromIDs/clear', ['as'=>'dataFromIOs.clear', 'uses'=>'DataFromIOsController@clear']);
+Route::resource('items', 'ItemsController');
+Route::get('item/{id}', ['as' => 'item.show.img', 'uses'=>'ItemsController@showImg']);
