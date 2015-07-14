@@ -52,6 +52,12 @@ return array(
 			'prefix'   => '',
 		),
 
+		'sqlite2' => array(
+			'driver'   => 'sqlite',
+			'database' => __DIR__.'/../database/HostMaster.sqlite',
+			'prefix'   => '',
+		),
+
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
