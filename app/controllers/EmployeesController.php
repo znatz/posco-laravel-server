@@ -23,8 +23,17 @@ class EmployeesController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Employee::create($data);
-
+        if(Input::has('createEmployee')) Employee::create($data);
+        if(Input::has('deleteEmployee')) {
+            $e = Employee::where('name', Input::get('name'))->first();
+            Employee::destroy($e->id);
+        }
+        if(Input::has('updateEmployee')) {
+            $e = Employee::where('name', Input::get('name'))->first();
+            Employee::destroy($e->id);
+            $data['name'] = $data['new_name'];
+            Employee::create($data);
+        }
 		return Redirect::route('employees.index');
 	}
 
