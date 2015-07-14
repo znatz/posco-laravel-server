@@ -1,77 +1,92 @@
 <?php
 
-class EmployeesController extends \BaseController {
+class EmployeesController extends \BaseController
+{
 
-	public function index()
-	{
-		$employees = Employee::all();
+    public function index()
+    {
+        $employees = Employee::all();
 
-		return View::make('employees.index', compact('employees'));
-	}
+        return View::make('employees.index', compact('employees'));
+    }
 
-	public function create()
-	{
-		return View::make('employees.create');
-	}
+    public function create()
+    {
+        return View::make('employees.create');
+    }
 
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Employee::$rules);
+    public function store()
+    {
+        $validator = Validator::make($data = Input::all(), Employee::$rules);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-        if(Input::has('createEmployee')) Employee::create($data);
-        if(Input::has('deleteEmployee')) {
+        if (Input::has('createEmployee')) Employee::create($data);
+        if (Input::has('deleteEmployee')) {
             $e = Employee::where('name', Input::get('name'))->first();
             Employee::destroy($e->id);
         }
-        if(Input::has('updateEmployee')) {
+        if (Input::has('updateEmployee')) {
             $e = Employee::where('name', Input::get('name'))->first();
             Employee::destroy($e->id);
             $data['name'] = $data['new_name'];
             Employee::create($data);
         }
-		return Redirect::route('employees.index');
-	}
+        if (Input::has('createItem')) {
 
-	public function show($id)
-	{
-		$employee = Employee::findOrFail($id);
+            $id =  DB::table('BTSMAS')->count();
+            $id ++;
+            $file = $id. '.png';
 
-		return View::make('employees.show', compact('employee'));
-	}
+            if (move_uploaded_file($_FILES['contents']['tmp_name'], $file)) {
+                echo $file;
+            } else {
+                echo "error";
+            }
 
-	public function edit($id)
-	{
-		$employee = Employee::find($id);
+            $data['contents'] = file_get_contents($file);
+            unlink($file);
+            Item::create($data);
+        }
+        return Redirect::route('employees.index');
+    }
 
-		return View::make('employees.edit', compact('employee'));
-	}
+    public function show($id)
+    {
+        $employee = Employee::findOrFail($id);
 
-	public function update($id)
-	{
-		$employee = Employee::findOrFail($id);
+        return View::make('employees.show', compact('employee'));
+    }
 
-		$validator = Validator::make($data = Input::all(), Employee::$rules);
+    public function edit($id)
+    {
+        $employee = Employee::find($id);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        return View::make('employees.edit', compact('employee'));
+    }
 
-		$employee->update($data);
+    public function update($id)
+    {
+        $employee = Employee::findOrFail($id);
 
-		return Redirect::route('employees.index');
-	}
+        $validator = Validator::make($data = Input::all(), Employee::$rules);
 
-	public function destroy($id)
-	{
-		Employee::destroy($id);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-		return Redirect::route('employees.index');
-	}
+        $employee->update($data);
+
+        return Redirect::route('employees.index');
+    }
+
+    public function destroy($id)
+    {
+        Employee::destroy($id);
+
+        return Redirect::route('employees.index');
+    }
 
 }

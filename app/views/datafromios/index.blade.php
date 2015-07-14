@@ -1,16 +1,25 @@
 @extends('layout.autorefresh')
 @section('contents')
-    <table>
+    <table class="table table-bordered text-center">
+        <thead>
+        <tr class="row">
+            <td class="col-md-1">担当者ID</th>
+            <td class="col-md-3">商品名</th>
+            <td class="col-md-2">個数</th>
+            <td class="col-md-3">時間</th>
+        </tr>
+        </thead>
         @foreach($datafromios as $d)
-        <tr>
-            <td>{{$d->id}}</td>
+        <tr class="row">
             <td>{{$d->tanto}}</td>
             <td>{{$d->goodsTitle}}</td>
             <td>{{$d->kosu}}</td>
             <td>{{$d->time}}</td>
-            <td>{{$d->created_at}}</td>
-            <td>{{$d->updated_at}}</td>
         </tr>
             @endforeach
     </table>
+    @stop
+@section('contents2')
+    {{Form::open(['route'=>'dataFromIOs.clear', 'method'=>'post'])}}
+    {{Form::submit('記録をクリア')}}
     @stop
