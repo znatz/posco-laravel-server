@@ -25,3 +25,4 @@ Route::get('/register', function()
 
 Route::resource('employees', 'EmployeesController');
 Route::post('/iosReceiver', "iosReceiver@index");
+Route::resource('dataFromIOs', 'DataFromIOsController');
