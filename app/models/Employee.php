@@ -12,10 +12,5 @@ class Employee extends \Eloquent {
     protected $fillable = ["name"];
     public $timestamps = false;
 
-    public static function store($name) {
-        $e = new Employee();
-        $e->name = $name;
-        $e->save();
-}
 
 }

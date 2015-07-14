@@ -1,43 +1,39 @@
-<html>
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" type="text/css" href="./css/blended_layout.css">
-    <link rel="stylesheet" type="text/css" href="./css/search.css">
-    <title>POSCO IOS</title>
-    <style>
-        input {
-            height: 50px;
-        }
-
-        .form_label {
-            display: inline-block;
-            width:100px;
-        }
-
-    </style>
-<body>
-<section>
-    <form method="POST">
-        <fieldset>
-            <label class="form_label" for="id"> ID : </label><input type="text" name="id" size="100"/> <br/>
-            <label class="form_label" for="name">担当者 :　</label><input type="text" name="name" size="100"/><br/>
-            <input type="submit" name="submit" value="追加"/>
-            <input type="submit" name="clearTransfer" value="注文記録を消す"/>
-        </fieldset>
-    </form>
-    <?php
-
-    if(isset($_POST["submit"])) {
-        Employee::store($_POST['name']);
-    }
-
-        $es = Employee::all();
-    ?>
- <dl>
-        @foreach ($es as $e)
-                <dt>Tanto</dt>
-                <dd>{{ $e->name }}</dd>
+@extends('layout.layout')
+@section('contents')
+    {{Form::open(['route'=>'employees.store', 'method'=>'post'])}}
+    <div class="row">
+        <div class="col-xs-1">
+            {{Form::label('name', '担当者名')}}
+        </div>
+        <div class="col-xs-3">
+            {{Form::text('name', '担当者名', ['class' => 'form-control'])}}
+        </div>
+        <div class="col-xs-2">
+            {{Form::submit('登録', ['name' => 'createEmployee'])}}
+        </div>
+        <div class="col-xs-2">
+            {{Form::submit('削除', ['name' => 'deleteEmployee'])}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-1">
+            {{Form::label('new_name', '新担当者名')}}
+        </div>
+        <div class="col-xs-3">
+            {{Form::text('new_name', '新担当者名', ['class' => 'form-control'])}}
+        </div>
+        <div class="col-xs-2">
+            {{Form::submit('更新', ['name' => 'updateEmployee'])}}
+        </div>
+    </div>
+   @stop
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <tr class="row">
+            <td class="col-xs-3">担当者</td>
+        </tr>
+        @foreach($employees as $e)
+        <tr class="row">
+            <td class="col-xs-3">{{ $e->name }}</td>
+        </tr>
         @endforeach
-  </dl>
-</section>
-</body></html>
+    </table>
