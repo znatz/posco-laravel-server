@@ -2,47 +2,105 @@
 @section('contents')
     {{Form::open(['route'=>'employees.store', 'method'=>'post'])}}
     <div class="row form-group">
-        <div class="col-xs-2">
+        <div class="col-xs-3">
             {{Form::label('name', '担当者名', ['class' => 'control-label'])}}
         </div>
         <div class="col-xs-4">
             {{Form::text('name', '', ['class' => 'form-control'])}}
         </div>
-        <div class="col-xs-2">
+    </div>
+    <div class="row form-group">
+        <div class="col-xs-3">
             {{Form::submit('登録', ['name' => 'createEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
         </div>
-        <div class="col-xs-2">
+
+        <div class="col-xs-3">
             {{Form::submit('削除', ['name' => 'deleteEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
         </div>
     </div>
+
     <div class="row form-group">
-        <div class="col-xs-2">
+        <div class="col-xs-3">
             {{Form::label('new_name', '新担当者名',['class'=>'control-label'])}}
         </div>
         <div class="col-xs-4">
             {{Form::text('new_name', '', ['class' => 'form-control'])}}
         </div>
-        <div class="col-xs-2">
+    </div>
+    <div class="row form-group">
+        <div class="col-xs-3">
             {{Form::submit('更新', ['name' => 'updateEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
         </div>
-        {{Form::close()}}
+    </div>
+    {{Form::close()}}
+    <div class="row">
+        <div class="col-xs-6">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <tr class="row text-center">
+                    <td class="mark">
+                        登録済み担当者
+                    </td>
+                </tr>
+                @foreach($employees as $e)
+                    <tr class="row text-center">
+                        <td>{{ $e->name }}</td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
     </div>
 @stop
 @section('contents2')
-    <table class="table table-striped table-bordered table-hover table-condensed">
-        <tr class="row text-center">
-            <td class="mark">
-                登録済み担当者
-            </td>
-        </tr>
-        @foreach($employees as $e)
-            <tr class="row text-center">
-                <td>{{ $e->name }}</td>
-            </tr>
-        @endforeach
-    </table>
-@stop
+    {{Form::open(['route'=>'employees.store', 'method'=>'post'])}}
+    <div class="row form-group">
+        <div class="col-xs-3">
+            {{Form::label('name', '部門名', ['class' => 'control-label'])}}
+        </div>
+        <div class="col-xs-4">
+            {{Form::text('name', '', ['class' => 'form-control'])}}
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-xs-3">
+            {{Form::submit('登録', ['name' => 'createEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+        </div>
 
+        <div class="col-xs-3">
+            {{Form::submit('削除', ['name' => 'deleteEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-xs-3">
+            {{Form::label('new_name', '新部門名',['class'=>'control-label'])}}
+        </div>
+        <div class="col-xs-4">
+            {{Form::text('new_name', '', ['class' => 'form-control'])}}
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-xs-3">
+            {{Form::submit('更新', ['name' => 'updateEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+        </div>
+    </div>
+    {{Form::close()}}
+    <div class="row">
+        <div class="col-xs-6">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <tr class="row text-center">
+                    <td class="mark">
+                        登録済み部門
+                    </td>
+                </tr>
+                @foreach($employees as $e)
+                    <tr class="row text-center">
+                        <td>{{ $e->name }}</td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
+    </div>
+@stop
 @section('contents3')
     {{Form::open(['route'=>'employees.store', 'method'=>'post', 'files'=>true])}}
     <div>
@@ -101,7 +159,7 @@
            data-locale="ja-JP">
         <thead>
         <tr class="row text-center mark">
-            <td></td>
+            <td>選択</td>
             <td>商品名</td>
             <td>価格</td>
             <td>原価</td>
