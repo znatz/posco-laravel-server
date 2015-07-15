@@ -112,4 +112,11 @@ class ItemsController extends \BaseController {
         echo $item->contents;
     }
 
+    public function getItem($id)
+    {
+        $item = Item::findOrFail($id);
+        dd("called");
+        return Redirect::route('employees.index',compact('item'));
+    }
+
 }
