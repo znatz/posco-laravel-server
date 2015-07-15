@@ -30,3 +30,5 @@ Route::post('dataFromIDs/clear', ['as'=>'dataFromIOs.clear', 'uses'=>'DataFromIO
 Route::resource('items', 'ItemsController');
 Route::get('item/{id}', ['as' => 'item.show.img', 'uses'=>'ItemsController@showImg']);
 Route::post('item/{id}', ['as' => 'item.retrieve', 'uses'=>'ItemsController@getItem']);
+Route::resource('categories', 'CategoriesController');
+Route::resource('shops', 'ShopsController');

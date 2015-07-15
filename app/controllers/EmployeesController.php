@@ -6,9 +6,11 @@ class EmployeesController extends \BaseController
     public function index()
     {
         $employees = Employee::all();
+        $categories = Category::all();
+        $shops = Shop::all();
 
         $item = new Item();
-        return View::make('employees.index', compact('employees', 'item'));
+        return View::make('employees.index', compact('employees', 'item', 'categories','shops'));
     }
 
     public function create()
@@ -24,6 +26,7 @@ class EmployeesController extends \BaseController
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
+        /* Employee */
         if (Input::has('createEmployee')) Employee::create($data);
 
         if (Input::has('deleteEmployee')) {
@@ -38,6 +41,39 @@ class EmployeesController extends \BaseController
             Employee::create($data);
         }
 
+        /* Category */
+        if (Input::has('createCategory')) Category::create($data);
+
+        if (Input::has('deleteCategory')) {
+            $c = Category::where('Bumon', Input::get('Bumon'))->first();
+            Category::destroy($c->id);
+        }
+
+        if (Input::has('updateCategory')) {
+            $c = Category::where('Bumon', Input::get('Bumon'))->first();
+            Category::destroy($c->id);
+            $data['Bumon'] = $data['new_categoryName'];
+            Employee::create($data);
+        }
+
+         /* Shop */
+        if (Input::has('createShop')) Shop::create($data);
+
+        if (Input::has('deleteShop')) {
+            $s = Shop::where('Tenpo', Input::get('Tenpo'))->first();
+            Shop::destroy($s->id);
+        }
+
+        if (Input::has('updateShop')) {
+            $s = Shop::where('Tenpo', Input::get('Tenpo'))->first();
+            Shop::destroy($s->id);
+            $data['Tenpo'] = $data['new_shopName'];
+            Shop::create($data);
+        }
+
+
+
+        /* Item */
         if (Input::has('createItem')) {
 
             $id = DB::table('BTSMAS')->count();
@@ -82,7 +118,10 @@ class EmployeesController extends \BaseController
             $targetID = Input::get('selectedItem');
             $item = Item::find($targetID);
             $employees = Employee::all();
-            return View::make('employees.index', compact('employees', 'item'));
+
+            $shops = Shop::all();
+            $categories = Category::all();
+            return View::make('employees.index', compact('employees', 'item', 'categories','shops'));
         }
 
         return Redirect::route('employees.index');
