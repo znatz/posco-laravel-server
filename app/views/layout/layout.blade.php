@@ -12,7 +12,6 @@
     <script type="text/javascript">
         jQuery(document).ready(function () {
             $("input[type='radio']").change(function(){
-                console.log("call");
                 $(this).attr('checked', 'checked');
                   $('#item_form').submit();
             });
@@ -23,10 +22,10 @@
 <div class="container">
     @include('layout.navbar')
     <div class="row well well-lg">
-        <div class="col-xs-7">
+        <div class="row col-xs-5  well">
             @yield('contents')
         </div>
-        <div class="col-xs-3">
+        <div class="row col-xs-5  well">
             @yield('contents2')
         </div>
     </div>
