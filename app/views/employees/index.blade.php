@@ -44,7 +44,7 @@
 @stop
 
 @section('contents3')
-    {{Form::open(['route'=>'employees.store', 'method'=>'post'])}}
+    {{Form::open(['route'=>'employees.store', 'method'=>'post', 'files'=>true])}}
     <div>
         {{Form::label('title', '商品名', ['class' => 'control-label'])}}
     </div>
@@ -79,10 +79,17 @@
         {{Form::label('contents', '写真',['class'=>'control-label'])}}
     </div>
     <div>
-        {{Form::file('contents')}}
+        {{Form::file('upload')}}
     </div>
-    <div>
+    <div class="well-sm">
         {{Form::submit('登録', ['name' => 'createItem', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+    </div>
+    <div class="well-sm">
+        {{Form::submit('更新', ['name' => 'updateItem', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+    </div>
+    <div class="well-sm">
+        {{Form::submit('削除', ['name' => 'deleteItem', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+        {{Form::text('idItem', $item->id, ['style'=>'display:none'])}}
     </div>
     {{Form::close()}}
 @stop
