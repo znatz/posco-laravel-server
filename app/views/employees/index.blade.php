@@ -6,7 +6,7 @@
             {{Form::label('name', '担当者名', ['class' => 'control-label'])}}
         </div>
         <div class="col-xs-4">
-            {{Form::text('name', '担当者名', ['class' => 'form-control'])}}
+            {{Form::text('name', '', ['class' => 'form-control'])}}
         </div>
         <div class="col-xs-2">
             {{Form::submit('登録', ['name' => 'createEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
@@ -20,7 +20,7 @@
             {{Form::label('new_name', '新担当者名',['class'=>'control-label'])}}
         </div>
         <div class="col-xs-4">
-            {{Form::text('new_name', '新担当者名', ['class' => 'form-control'])}}
+            {{Form::text('new_name', '', ['class' => 'form-control'])}}
         </div>
         <div class="col-xs-2">
             {{Form::submit('更新', ['name' => 'updateEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
@@ -30,10 +30,10 @@
 @stop
 @section('contents2')
     <table class="table table-striped table-bordered table-hover table-condensed">
-        <tr class="row">
-            <th>
+        <tr class="row text-center">
+            <td class="mark">
                 登録済み担当者
-            </th>
+            </td>
         </tr>
         @foreach($employees as $e)
             <tr class="row text-center">
@@ -44,36 +44,36 @@
 @stop
 
 @section('contents3')
-    {{Form::open(['route'=>'employees.store', 'method'=>'post', 'files'=>true])}}
+    {{Form::open(['route'=>'employees.store', 'method'=>'post'])}}
     <div>
         {{Form::label('title', '商品名', ['class' => 'control-label'])}}
     </div>
     <div>
-        {{Form::text('title', '商品名', ['class' => 'form-control'])}}
+        {{Form::text('title', $item->title, ['class' => 'form-control'])}}
     </div>
     <div>
         {{Form::label('price', '価格',['class'=>'control-label'])}}
     </div>
     <div>
-        {{Form::text('price', '価格', ['class' => 'form-control'])}}
+        {{Form::text('price', $item->price, ['class' => 'form-control'])}}
     </div>
     <div>
         {{Form::label('genka', '原価',['class'=>'control-label'])}}
     </div>
     <div>
-        {{Form::text('genka', '原価', ['class' => 'form-control'])}}
+        {{Form::text('genka', $item->genka, ['class' => 'form-control'])}}
     </div>
     <div>
         {{Form::label('Bumon', '部門',['class'=>'control-label'])}}
     </div>
     <div>
-        {{Form::text('Bumon', '部門', ['class' => 'form-control'])}}
+        {{Form::text('Bumon', $item->Bumon, ['class' => 'form-control'])}}
     </div>
     <div>
         {{Form::label('Kosu', '個数',['class'=>'control-label'])}}
     </div>
     <div>
-        {{Form::text('Kosu', '個数', ['class' => 'form-control'])}}
+        {{Form::text('Kosu', $item->Kosu, ['class' => 'form-control'])}}
     </div>
     <div>
         {{Form::label('contents', '写真',['class'=>'control-label'])}}
@@ -89,23 +89,33 @@
 
 @section('contents4')
     <? $items = Item::all(); ?>
-    <table class="table table-striped table-bordered table-hover table-condensed">
-        <tr class="row">
-            <th>商品名</th>
-            <th>価格</th>
-            <th>原価</th>
-            <th>部門</th>
-            <th>在庫</th>
+    {{Form::open(['route'=>'employees.index', 'method'=>'post', 'id'=>"item_form"])}}
+    <table class="table table-striped table-bordered table-hover table-condensed" data-toggle="table"
+           data-locale="ja-JP">
+        <thead>
+        <tr class="row text-center mark">
+            <td></td>
+            <td>商品名</td>
+            <td>価格</td>
+            <td>原価</td>
+            <td>部門</td>
+            <td>在庫</td>
+            <td>写真</td>
         </tr>
+        </thead>
+        <tbody>
         @foreach($items as $item)
             <tr class="row">
+                <td class="col-md-1 text-center">{{Form::radio('selectedItem',$item->id, false, ['id'=>'selectedItem'])}}</td>
                 <td>{{$item->title}}</td>
                 <td>{{$item->price}}</td>
                 <td>{{$item->genka}}</td>
                 <td>{{$item->Bumon}}</td>
                 <td>{{$item->Kosu}}</td>
-                <td class="col-xs-1"><img src='./item/{{$item->id}}'} class="img-responsive"/></td>
+                <td class="col-xs-1"><img src='./item/{{$item->id}}' } class="img-responsive"/></td>
             </tr>
         @endforeach
+        </tbody>
     </table>
+    {{Form::close()}}
 @stop

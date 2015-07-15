@@ -7,7 +7,8 @@ class EmployeesController extends \BaseController
     {
         $employees = Employee::all();
 
-        return View::make('employees.index', compact('employees'));
+        $item = new Item();
+        return View::make('employees.index', compact('employees','item'));
     }
 
     public function create()
@@ -50,7 +51,15 @@ class EmployeesController extends \BaseController
             unlink($file);
             Item::create($data);
         }
-        return Redirect::route('employees.index');
+
+        if(Input::get('selectedItem')) {
+            $targetID = Input::get('selectedItem');
+            $item = Item::find($targetID);
+            $employees = Employee::all();
+            return View::make('employees.index', compact('employees','item'));
+        }
+
+       return Redirect::route('employees.index');
     }
 
     public function show($id)
