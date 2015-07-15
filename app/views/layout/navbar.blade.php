@@ -13,6 +13,7 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">ホーム</a></li>
                     <li><a href="./employees">マスタ管理</a></li>
+                    <li><a href="./settings">全レジ初期設定</a></li>
                     <li><a href="./dataFromIOs">最新注文</a></li>
                     <li><a href="#">テスト</a></li>
                 </ul>

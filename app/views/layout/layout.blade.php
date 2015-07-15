@@ -22,19 +22,22 @@
 <div class="container">
     @include('layout.navbar')
     <div class="row well well-lg">
-        <div class="row col-xs-5  well">
+        <div class="row col-md-4  well">
             @yield('contents')
         </div>
-        <div class="row col-xs-5  well">
+        <div class="row col-md-4  well">
             @yield('contents2')
+        </div>
+        <div class="row col-md-4  well">
+            @yield('contents3')
         </div>
     </div>
     <div class="row well well-lg">
-        <div class="col-xs-3">
-            @yield('contents3')
-        </div>
-        <div class="col-xs-7">
+        <div class="col-xs-4">
             @yield('contents4')
+        </div>
+        <div class="col-xs-8">
+            @yield('contents5')
         </div>
     </div>
 </div>

@@ -2,33 +2,33 @@
 @section('contents')
     {{Form::open(['route'=>'employees.store', 'method'=>'post'])}}
     <div class="row form-group">
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             {{Form::label('name', '担当者名', ['class' => 'control-label'])}}
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-7">
             {{Form::text('name', '', ['class' => 'form-control'])}}
         </div>
     </div>
     <div class="row form-group">
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             {{Form::submit('登録', ['name' => 'createEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
         </div>
 
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             {{Form::submit('削除', ['name' => 'deleteEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
         </div>
     </div>
 
     <div class="row form-group">
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             {{Form::label('new_name', '新担当者名',['class'=>'control-label'])}}
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-7">
             {{Form::text('new_name', '', ['class' => 'form-control'])}}
         </div>
     </div>
     <div class="row form-group">
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             {{Form::submit('更新', ['name' => 'updateEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
         </div>
     </div>
@@ -53,34 +53,34 @@
 @section('contents2')
     {{Form::open(['route'=>'employees.store', 'method'=>'post'])}}
     <div class="row form-group">
-        <div class="col-xs-3">
-            {{Form::label('name', '部門名', ['class' => 'control-label'])}}
-        </div>
         <div class="col-xs-4">
-            {{Form::text('name', '', ['class' => 'form-control'])}}
+            {{Form::label('Bumon', '部門名', ['class' => 'control-label'])}}
+        </div>
+        <div class="col-xs-7">
+            {{Form::text('Bumon', '', ['class' => 'form-control'])}}
         </div>
     </div>
     <div class="row form-group">
-        <div class="col-xs-3">
-            {{Form::submit('登録', ['name' => 'createEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+        <div class="col-xs-4">
+            {{Form::submit('登録', ['name' => 'createCategory', 'class'=>'form-control btn-primary btn-md btn-block'])}}
         </div>
 
-        <div class="col-xs-3">
-            {{Form::submit('削除', ['name' => 'deleteEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+        <div class="col-xs-4">
+            {{Form::submit('削除', ['name' => 'deleteCategory', 'class'=>'form-control btn-primary btn-md btn-block'])}}
         </div>
     </div>
 
     <div class="row form-group">
-        <div class="col-xs-3">
-            {{Form::label('new_name', '新部門名',['class'=>'control-label'])}}
-        </div>
         <div class="col-xs-4">
-            {{Form::text('new_name', '', ['class' => 'form-control'])}}
+            {{Form::label('new_categoryName', '新部門名',['class'=>'control-label'])}}
+        </div>
+        <div class="col-xs-7">
+            {{Form::text('new_categoryName', '', ['class' => 'form-control'])}}
         </div>
     </div>
     <div class="row form-group">
-        <div class="col-xs-3">
-            {{Form::submit('更新', ['name' => 'updateEmployee', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+        <div class="col-xs-4">
+            {{Form::submit('更新', ['name' => 'updateCategory', 'class'=>'form-control btn-primary btn-md btn-block'])}}
         </div>
     </div>
     {{Form::close()}}
@@ -92,16 +92,72 @@
                         登録済み部門
                     </td>
                 </tr>
-                @foreach($employees as $e)
+                @foreach($categories as $c)
                     <tr class="row text-center">
-                        <td>{{ $e->name }}</td>
+                        <td>{{ $c->Bumon }}</td>
                     </tr>
                 @endforeach
             </table>
         </div>
     </div>
 @stop
+
 @section('contents3')
+    {{Form::open(['route'=>'employees.store', 'method'=>'post'])}}
+    <div class="row form-group">
+        <div class="col-xs-4">
+            {{Form::label('Tenpo', '店舗名', ['class' => 'control-label'])}}
+        </div>
+        <div class="col-xs-7">
+            {{Form::text('Tenpo', '', ['class' => 'form-control'])}}
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-xs-4">
+            {{Form::submit('登録', ['name' => 'createShop', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+        </div>
+
+        <div class="col-xs-4">
+            {{Form::submit('削除', ['name' => 'deleteShop', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-xs-4">
+            {{Form::label('new_shopName', '新店舗名',['class'=>'control-label'])}}
+        </div>
+        <div class="col-xs-7">
+            {{Form::text('new_shopName', '', ['class' => 'form-control'])}}
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-xs-4">
+            {{Form::submit('更新', ['name' => 'updateShop', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+        </div>
+    </div>
+    {{Form::close()}}
+    <div class="row">
+        <div class="col-xs-6">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <tr class="row text-center">
+                    <td class="mark">
+                        登録済み店舗
+                    </td>
+                </tr>
+                @foreach($shops as $s)
+                    <tr class="row text-center">
+                        <td>{{ $s->Tenpo }}</td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
+    </div>
+@stop
+
+
+
+@section('contents4')
+    <? foreach ($categories as $c) { $category_pairs[$c->id] = $c->Bumon;} ?>
     {{Form::open(['route'=>'employees.store', 'method'=>'post', 'files'=>true])}}
     <div>
         {{Form::label('title', '商品名', ['class' => 'control-label'])}}
@@ -125,7 +181,7 @@
         {{Form::label('Bumon', '部門',['class'=>'control-label'])}}
     </div>
     <div>
-        {{Form::text('Bumon', $item->Bumon, ['class' => 'form-control'])}}
+        {{Form::select('Bumon', $category_pairs, $item->Bumon, ['class'=>'form-control'])}}
     </div>
     <div>
         {{Form::label('Kosu', '個数',['class'=>'control-label'])}}
@@ -137,7 +193,7 @@
         {{Form::label('contents', '写真',['class'=>'control-label'])}}
     </div>
     <div>
-        {{Form::file('upload')}}
+        {{Form::file('upload',['class'=>'form-control'])}}
     </div>
     <div class="well-sm">
         {{Form::submit('登録', ['name' => 'createItem', 'class'=>'form-control btn-primary btn-md btn-block'])}}
@@ -152,7 +208,7 @@
     {{Form::close()}}
 @stop
 
-@section('contents4')
+@section('contents5')
     <? $items = Item::all(); ?>
     {{Form::open(['route'=>'employees.index', 'method'=>'post', 'id'=>"item_form"])}}
     <table class="table table-striped table-bordered table-hover table-condensed" data-toggle="table"
