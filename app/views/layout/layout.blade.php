@@ -33,10 +33,10 @@
         </div>
     </div>
     <div class="row well well-lg">
-        <div class="col-xs-4">
+        <div class="col-md-4">
             @yield('contents4')
         </div>
-        <div class="col-xs-8">
+        <div class="col-md-8">
             @yield('contents5')
         </div>
     </div>

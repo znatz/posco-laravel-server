@@ -15,4 +15,10 @@ class BaseController extends Controller {
 		}
 	}
 
+    protected $messageBag = null;
+
+    public function __construct()
+    {
+        $this->messageBag = new Illuminate\Support\MessageBag();
+    }
 }

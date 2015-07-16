@@ -14,6 +14,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var string
 	 */
+//    protected $connection = 'sqlite2';
 	protected $table = 'users';
 
 	/**
