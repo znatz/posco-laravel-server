@@ -112,6 +112,73 @@
         </tr>
    </table>
    {{Form::text('shopid', $shop->id, ['style'=>'display:none'])}}
-    {{Form::submit('更新', ['name' => 'shopSetting', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+    {{Form::submit('更新', ['name' => 'shopUpdate', 'class'=>'form-control btn-primary btn-md btn-block'])}}
+    {{Form::close()}}
+@stop
+@section('contents3')
+    <? $r = $receiptsettings[0]; ?>
+    {{Form::open(['route'=>'receiptsettings.update','method'=>'put'])}}
+    <table class="table table-striped table-bordered table-condensed table-hover">
+        <tr class="row text-center">
+            <td class="mark">
+                {{Form::label('tax', '消費税率',['class'=>'control-label'])}}
+                {{Form::text('tax', $r->tax, ['class' => 'form-control'])}}
+            </td>
+        </tr>
+        <tr class="row text-center">
+            <td class="mark">
+                {{Form::label('haveReceipt', 'レシート',['class'=>'control-label'])}}
+            </td>
+        </tr>
+        <tr class="row">
+            <td>
+                {{Form::label('haveReceipt', 'レシート無し',['class'=>'control-label col-md-9'])}}
+                {{Form::radio('haveReceipt', 0, 0 == $r->haveReceipt, ['id' => 'haveReceipt', 'class'=>'input-sm col-md-1'])}}
+            </td>
+        </tr>
+        <tr class="row">
+            <td>
+                {{Form::label('haveReceipt', 'レシート有り',['class'=>'control-label col-md-9'])}}
+                {{Form::radio('haveReceipt', 1, 1 == $r->haveReceipt, ['id' => 'haveReceipt', 'class'=>'input-sm col-md-1'])}}
+            </td>
+        </tr>
+        <tr class="row text-center">
+            <td class="mark">
+                {{Form::label('haveStamp', 'スタンプ',['class'=>'control-label'])}}
+            </td>
+        </tr>
+        <tr class="row">
+            <td>
+                {{Form::label('haveStamp', 'スタンプ無し',['class'=>'control-label col-md-9'])}}
+                {{Form::radio('haveStamp', 0, 0 == $r->haveStamp, ['id' => 'haveStamp', 'class'=>'input-sm col-md-1'])}}
+            </td>
+        </tr>
+        <tr class="row">
+            <td>
+                {{Form::label('haveStamp', 'スタンプ有り',['class'=>'control-label col-md-9'])}}
+                {{Form::radio('haveStamp', 1, 1 == $r->haveStamp, ['id' => 'haveStamp', 'class'=>'input-sm col-md-1'])}}
+            </td>
+        </tr>
+        <tr class="row text-center">
+            <td class="mark">
+                {{Form::label('haveComment', 'レシート印字',['class'=>'control-label'])}}
+            </td>
+        </tr>
+        <tr class="row">
+            <td>
+                {{Form::label('haveComment', 'レシート印字無し',['class'=>'control-label col-md-9'])}}
+                {{Form::radio('haveComment', 0, 0 == $r->haveComment, ['id' => 'haveComment', 'class'=>'input-sm col-md-1'])}}
+            </td>
+        </tr>
+        <tr class="row">
+            <td>
+                {{Form::label('haveComment', 'レシート印字有り',['class'=>'control-label col-md-9'])}}
+                {{Form::radio('haveComment', 1, 1 == $r->haveComment, ['id' => 'haveComment', 'class'=>'input-sm col-md-1'])}}
+            </td>
+        </tr>
+
+   </table>
+   {{Form::text('receiptsettingid', $r->id, ['style'=>'display:none'])}}
+    {{Form::submit('更新', ['name' => 'receiptUpdate', 'class'=>'form-control btn-primary btn-md btn-block'])}}
     {{Form::close()}}
 @stop
