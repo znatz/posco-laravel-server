@@ -14,7 +14,6 @@ class AuthController extends BaseController
 
     public function execSignUp()
     {
-        echo("runn");
         $validation_rule = array(
             'email' => 'required|email|unique:users',
             'password' => 'required|min:4'
@@ -23,7 +22,6 @@ class AuthController extends BaseController
         $validator = Validator::make(Input::all(), $validation_rule);
 
         if ($validator->fails()) {
-            dd($validator->messages());
             return Redirect::back()->withErrors($validator);
         }
 
