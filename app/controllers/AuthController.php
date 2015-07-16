@@ -68,4 +68,9 @@ class AuthController extends BaseController
         }
         return Redirect::back()->withInput()->withErrors($this->messageBag);
     }
+    public function execLogout()
+    {
+        Sentry::logout();
+        return View::make('auth.login');
+    }
 }
