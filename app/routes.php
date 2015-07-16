@@ -21,7 +21,7 @@ Route::get('/register', function () {
     return View::make('registration');
 });
 
-Route::group(['before' => 'sentry'], function () {
+Route::group(['before' => 'sentr'], function () {
     Route::resource('employees', 'EmployeesController');
     Route::post('/iosReceiver', "iosReceiver@index");
     Route::resource('dataFromIOs', 'DataFromIOsController');
@@ -31,6 +31,8 @@ Route::group(['before' => 'sentry'], function () {
     Route::post('item/{id}', ['as' => 'item.retrieve', 'uses' => 'ItemsController@getItem']);
     Route::resource('categories', 'CategoriesController');
     Route::resource('shops', 'ShopsController');
+    Route::resource('settings', 'SettingsController');
+    Route::resource('shopsettings', 'ShopsettingsController');
 });
 // ユーザ認証処理
 Route::get('/user/signup', array('as' => 'signup', 'uses' => 'AuthController@showSignUp'));

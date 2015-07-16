@@ -54,7 +54,7 @@ return array(
 
 		'sqlite2' => array(
 			'driver'   => 'sqlite',
-			'database' => __DIR__.'/../database/HostMaster.sqlite',
+			'database' => __DIR__.'/../database/Azukari.sqlite',
 			'prefix'   => '',
 		),
 
