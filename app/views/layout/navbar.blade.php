@@ -19,7 +19,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span>プロフィール</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>ログイン</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>ログアウト</a></li>
                 </ul>
             </div>
         </div>

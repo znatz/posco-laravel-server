@@ -12,8 +12,9 @@ class SettingsController extends \BaseController
     {
         $settings = Setting::all();
         $shopsettings = Shopsetting::all();
+        $receiptsettings = Receiptsetting::all();
 
-        return View::make('settings.index', compact('settings', 'shopsettings'));
+        return View::make('settings.index', compact('settings', 'shopsettings', 'receiptsettings'));
     }
 
     /**

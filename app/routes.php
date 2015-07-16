@@ -33,6 +33,7 @@ Route::group(['before' => 'sentr'], function () {
     Route::resource('shops', 'ShopsController');
     Route::resource('settings', 'SettingsController');
     Route::resource('shopsettings', 'ShopsettingsController');
+    Route::resource('receiptsettings', 'ReceiptsettingsController');
 });
 // ユーザ認証処理
 Route::get('/user/signup', array('as' => 'signup', 'uses' => 'AuthController@showSignUp'));
