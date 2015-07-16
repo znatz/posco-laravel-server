@@ -31,16 +31,44 @@ class CategoriesController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Category::$rules);
+		$categoryValidator = Validator::make($data = Input::all(), Category::$rules);
 
-		if ($validator->fails())
+		if ($categoryValidator->fails())
 		{
-			return Redirect::back()->withErrors($validator)->withInput();
+			return Redirect::back()->withErrors($categoryValidator)->withInput();
 		}
 
-		Category::create($data);
 
-		return Redirect::route('categories.index');
+        /* Category */
+        if (Input::has('createCategory')) {
+            Category::create($data);
+        }
+
+        if (Input::has('deleteCategory')) {
+            $c = Category::where('Bumon', Input::get('Bumon'))->first();
+            Category::destroy($c->id);
+        }
+
+        if (Input::has('updateCategory')) {
+
+            $messages = array(
+                'required' => '新しい部門名を入力してください。',
+            );
+
+            $categoryValidator = Validator::make($data = Input::all(), Employee::$update_rules, $messages);
+            if ($categoryValidator->fails()) {
+                return Redirect::back()->withErrors($categoryValidator)->withInput();
+            }
+
+            $c = Category::where('Bumon', Input::get('Bumon'))->first();
+            Category::destroy($c->id);
+            $data['Bumon'] = $data['new_categoryName'];
+            Category::create($data);
+        }
+
+
+        return Redirect::route('employees.index');
+
 	}
 
 	/**

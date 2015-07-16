@@ -15,10 +15,10 @@ Route::get('/', function () {
     return View::make('auth.login');
 });
 
-Route::resource('dataFromIOs', 'DataFromIOsController');
 Route::post('/iosReceiver', "iosReceiver@index");
 
 Route::group(['before' => 'sentry'], function () {
+    Route::resource('dataFromIOs', 'DataFromIOsController');
     Route::resource('employees', 'EmployeesController');
     Route::resource('items', 'ItemsController');
     Route::post('dataFromIDs/clear', ['as' => 'dataFromIOs.clear', 'uses' => 'DataFromIOsController@clear']);
@@ -29,10 +29,12 @@ Route::group(['before' => 'sentry'], function () {
     Route::resource('settings', 'SettingsController');
     Route::resource('shopsettings', 'ShopsettingsController');
     Route::resource('receiptsettings', 'ReceiptsettingsController');
+
+    Route::get('/user/signup', array('as' => 'signup', 'uses' => 'AuthController@showSignUp'));
+    Route::post('/user/signup', 'AuthController@execSignUp');
+    Route::get('/user/logout', array('as' => 'logout', 'uses' => 'AuthController@execLogout'));
 });
-// ユーザ認証処理
-Route::get('/user/signup', array('as' => 'signup', 'uses' => 'AuthController@showSignUp'));
-Route::post('/user/signup', 'AuthController@execSignUp');
+
+
 Route::get('/user/login', array('as' => 'login', 'uses' => 'AuthController@showLogin'));
 Route::post('/user/login', 'AuthController@execLogin');
-Route::get('/user/logout', array('as' => 'logout', 'uses' => 'AuthController@execLogout'));

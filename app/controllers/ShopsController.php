@@ -1,107 +1,134 @@
 <?php
 
-class ShopsController extends \BaseController {
+class ShopsController extends \BaseController
+{
 
-	/**
-	 * Display a listing of shops
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$shops = Shop::all();
+    /**
+     * Display a listing of shops
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $shops = Shop::all();
 
-		return View::make('shops.index', compact('shops'));
-	}
+        return View::make('shops.index', compact('shops'));
+    }
 
-	/**
-	 * Show the form for creating a new shop
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('shops.create');
-	}
+    /**
+     * Show the form for creating a new shop
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return View::make('shops.create');
+    }
 
-	/**
-	 * Store a newly created shop in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Shop::$rules);
+    /**
+     * Store a newly created shop in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $shopValidator = Validator::make($data = Input::all(), Shop::$rules);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        if ($shopValidator->fails()) {
+            return Redirect::back()->withErrors($shopValidator)->withInput();
+        }
 
-		Shop::create($data);
 
-		return Redirect::route('shops.index');
-	}
+        /* Shop */
+        if (Input::has('createShop')) Shop::create($data);
 
-	/**
-	 * Display the specified shop.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$shop = Shop::findOrFail($id);
+        if (Input::has('deleteShop')) {
+            $s = Shop::where('Tenpo', Input::get('Tenpo'))->first();
+            Shop::destroy($s->id);
+        }
 
-		return View::make('shops.show', compact('shop'));
-	}
+        if (Input::has('updateShop')) {
 
-	/**
-	 * Show the form for editing the specified shop.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$shop = Shop::find($id);
+            $messages = array(
+                'required' => '新しい店舗名を入力してください。',
+            );
 
-		return View::make('shops.edit', compact('shop'));
-	}
+            $shopValidator = Validator::make($data = Input::all(), Shop::$update_rules, $messages);
 
-	/**
-	 * Update the specified shop in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$shop = Shop::findOrFail($id);
+            if ($shopValidator->fails()) {
+                return Redirect::back()->withErrors($shopValidator)->withInput();
+            }
 
-		$validator = Validator::make($data = Input::all(), Shop::$rules);
+            $s = Shop::where('Tenpo', Input::get('Tenpo'))->first();
+            Shop::destroy($s->id);
+            $data['Tenpo'] = $data['new_shopName'];
+            Shop::create($data);
+        }
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
 
-		$shop->update($data);
+        return Redirect::route('employees.index');
 
-		return Redirect::route('shops.index');
-	}
 
-	/**
-	 * Remove the specified shop from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Shop::destroy($id);
+    }
 
-		return Redirect::route('shops.index');
-	}
+    /**
+     * Display the specified shop.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $shop = Shop::findOrFail($id);
+
+        return View::make('shops.show', compact('shop'));
+    }
+
+    /**
+     * Show the form for editing the specified shop.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $shop = Shop::find($id);
+
+        return View::make('shops.edit', compact('shop'));
+    }
+
+    /**
+     * Update the specified shop in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        $shop = Shop::findOrFail($id);
+
+        $shopValidator = Validator::make($data = Input::all(), Shop::$rules);
+
+        if ($shopValidator->fails()) {
+            return Redirect::back()->withErrors($shopValidator)->withInput();
+        }
+
+        $shop->update($data);
+
+        return Redirect::route('shops.index');
+    }
+
+    /**
+     * Remove the specified shop from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        Shop::destroy($id);
+
+        return Redirect::route('shops.index');
+    }
 
 }

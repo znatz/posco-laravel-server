@@ -10,8 +10,10 @@ class ItemsController extends \BaseController {
 	public function index()
 	{
 		$items = Item::all();
+        $categories = Category::all();
+        $item = new Item();
 
-		return View::make('items.index', compact('items'));
+		return View::make('items.index', compact('items', 'categories', 'item'));
 	}
 
 	/**
@@ -39,9 +41,59 @@ class ItemsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Item::create($data);
 
-		return Redirect::route('items.index');
+        /* Item */
+        if (Input::has('createItem')) {
+
+            $id = DB::table('BTSMAS')->count();
+            $id++;
+            $file = $id . '.png';
+
+            if (move_uploaded_file($_FILES['upload']['tmp_name'], $file)) {
+                echo $file;
+            } else {
+                echo "error";
+            }
+
+            $data['contents'] = file_get_contents($file);
+            unlink($file);
+            Item::create($data);
+        }
+
+        if (Input::has('deleteItem')) {
+            $id = Input::get('idItem');
+            Item::destroy($id);
+        }
+
+        if (Input::has('updateItem')) {
+            $id = Input::get('idItem');
+            $item = Item::find($id);
+            $item->title = Input::get('title');
+            $item->price = Input::get('price');
+            $item->genka = Input::get('genka');
+            $item->Bumon = Input::get('Bumon');
+            $item->Kosu  = Input::get('Kosu');
+            if (file_exists($_FILES['upload']['tmp_name']))
+            {
+                $file = $id . '.png';
+                move_uploaded_file($_FILES['upload']['tmp_name'], $file);
+                $item->contents = file_get_contents($file);
+                unlink($file);
+            }
+            $item->save();
+        }
+
+        if (Input::get('selectedItem')) {
+            $targetID = Input::get('selectedItem');
+            $item = Item::find($targetID);
+
+            $shops = Shop::all();
+            $categories = Category::all();
+            return View::make('items.index', compact('item', 'categories','shops'));
+        }
+
+
+        return Redirect::route('items.index');
 	}
 
 	/**

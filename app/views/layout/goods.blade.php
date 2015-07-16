@@ -23,17 +23,6 @@
     @include('layout.navbar')
     @include('message.form')
     <div class="row well well-lg">
-        <div class="col-md-4  well">
-            @yield('contents')
-        </div>
-        <div class="col-md-4  well">
-            @yield('contents2')
-        </div>
-        <div class="col-md-4  well">
-            @yield('contents3')
-        </div>
-    </div>
-    <div class="row well well-lg">
         <div class="col-md-4">
             @yield('contents4')
         </div>
