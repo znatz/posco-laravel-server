@@ -12,21 +12,16 @@
 */
 
 Route::get('/', function () {
-    return View::make('hello');
+    return View::make('auth.login');
 });
 
-Route::controller('/Master', "MasterRecordController");
+Route::resource('dataFromIOs', 'DataFromIOsController');
+Route::post('/iosReceiver', "iosReceiver@index");
 
-Route::get('/register', function () {
-    return View::make('registration');
-});
-
-Route::group(['before' => 'sentr'], function () {
+Route::group(['before' => 'sentry'], function () {
     Route::resource('employees', 'EmployeesController');
-    Route::post('/iosReceiver', "iosReceiver@index");
-    Route::resource('dataFromIOs', 'DataFromIOsController');
-    Route::post('dataFromIDs/clear', ['as' => 'dataFromIOs.clear', 'uses' => 'DataFromIOsController@clear']);
     Route::resource('items', 'ItemsController');
+    Route::post('dataFromIDs/clear', ['as' => 'dataFromIOs.clear', 'uses' => 'DataFromIOsController@clear']);
     Route::get('item/{id}', ['as' => 'item.show.img', 'uses' => 'ItemsController@showImg']);
     Route::post('item/{id}', ['as' => 'item.retrieve', 'uses' => 'ItemsController@getItem']);
     Route::resource('categories', 'CategoriesController');
@@ -40,3 +35,4 @@ Route::get('/user/signup', array('as' => 'signup', 'uses' => 'AuthController@sho
 Route::post('/user/signup', 'AuthController@execSignUp');
 Route::get('/user/login', array('as' => 'login', 'uses' => 'AuthController@showLogin'));
 Route::post('/user/login', 'AuthController@execLogin');
+Route::get('/user/logout', array('as' => 'logout', 'uses' => 'AuthController@execLogout'));
