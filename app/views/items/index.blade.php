@@ -1,5 +1,6 @@
 @extends('layout.goods')
 @section('contents4')
+    @include('message.form')
     <? foreach ($categories as $c) { $category_pairs[$c->id] = $c->Bumon;} ?>
     {{Form::open(['route'=>'items.store', 'method'=>'post', 'files'=>true])}}
     <div>
@@ -76,7 +77,7 @@
                 <td>{{$item->genka}}</td>
                 <td>{{$item->Bumon}}</td>
                 <td>{{$item->Kosu}}</td>
-                <td class="col-md-1"><img src='./item/{{$item->id}}' } class="img-responsive"/></td>
+                <td class="col-md-1"><a href="#" class="pop"><img id="imageresource" src='./item/{{$item->id}}' } class="img-responsive"/></a></td>
             </tr>
         @endforeach
         </tbody>

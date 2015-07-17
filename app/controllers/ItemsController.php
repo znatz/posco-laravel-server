@@ -34,6 +34,16 @@ class ItemsController extends \BaseController {
 	 */
 	public function store()
 	{
+        if (Input::get('selectedItem')) {
+            $targetID = Input::get('selectedItem');
+            $item = Item::find($targetID);
+
+            $shops = Shop::all();
+            $categories = Category::all();
+            return View::make('items.index', compact('item', 'categories','shops'));
+        }
+
+
 		$validator = Validator::make($data = Input::all(), Item::$rules);
 
 		if ($validator->fails())
@@ -58,11 +68,13 @@ class ItemsController extends \BaseController {
             $data['contents'] = file_get_contents($file);
             unlink($file);
             Item::create($data);
+            $message = "登録しました。";
         }
 
         if (Input::has('deleteItem')) {
             $id = Input::get('idItem');
             Item::destroy($id);
+            $message = "削除しました。";
         }
 
         if (Input::has('updateItem')) {
@@ -81,19 +93,10 @@ class ItemsController extends \BaseController {
                 unlink($file);
             }
             $item->save();
+            $message = "更新しました。";
         }
 
-        if (Input::get('selectedItem')) {
-            $targetID = Input::get('selectedItem');
-            $item = Item::find($targetID);
-
-            $shops = Shop::all();
-            $categories = Category::all();
-            return View::make('items.index', compact('item', 'categories','shops'));
-        }
-
-
-        return Redirect::route('items.index');
+        return Redirect::route('items.index')->with('message',$message);
 	}
 
 	/**

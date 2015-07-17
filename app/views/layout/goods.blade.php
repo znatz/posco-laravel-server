@@ -15,15 +15,30 @@
                 $(this).attr('checked', 'checked');
                   $('#item_form').submit();
             });
+            $('.pop').on('click', function() {
+                $('.imagepreview').attr('src', $(this).children().attr('src'));
+                $('#imagemodal').modal('show');
+            });
         });
     </script>
 </head>
 <body>
 <div class="container">
     @include('layout.navbar')
-    @include('message.form')
     <div class="row well well-lg">
-        <div class="col-md-4">
+        @section('lightbox')
+        <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <img src="" class="imagepreview" style="width: 100%;" >
+                    </div>
+                </div>
+            </div>
+        </div>
+        @show
+       <div class="col-md-4">
             @yield('contents4')
         </div>
         <div class="col-md-8">

@@ -28,10 +28,12 @@ class EmployeesController extends \BaseController
 
         /* Employee */
         if (Input::has('createEmployee')) Employee::create($data);
+        $message = "登録しました。";
 
         if (Input::has('deleteEmployee')) {
             $e = Employee::where('name', Input::get('name'))->first();
             Employee::destroy($e->id);
+            $message = "削除しました。";
         }
 
         if (Input::has('updateEmployee')) {
@@ -45,10 +47,11 @@ class EmployeesController extends \BaseController
             Employee::destroy($e->id);
             $data['name'] = $data['new_name'];
             Employee::create($data);
+            $message = "更新しました。";
         }
 
 
-        return Redirect::route('employees.index');
+        return Redirect::route('employees.index')->with('message',$message);
     }
 
     public function show($id)

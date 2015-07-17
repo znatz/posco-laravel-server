@@ -42,20 +42,22 @@ class CategoriesController extends \BaseController {
         /* Category */
         if (Input::has('createCategory')) {
             Category::create($data);
+            $message = "登録しました。";
         }
 
         if (Input::has('deleteCategory')) {
             $c = Category::where('Bumon', Input::get('Bumon'))->first();
             Category::destroy($c->id);
+            $message = "削除しました。";
         }
 
         if (Input::has('updateCategory')) {
 
-            $messages = array(
+            $err = array(
                 'required' => '新しい部門名を入力してください。',
             );
 
-            $categoryValidator = Validator::make($data = Input::all(), Employee::$update_rules, $messages);
+            $categoryValidator = Validator::make($data = Input::all(), Category::$update_rules, $err);
             if ($categoryValidator->fails()) {
                 return Redirect::back()->withErrors($categoryValidator)->withInput();
             }
@@ -64,10 +66,11 @@ class CategoriesController extends \BaseController {
             Category::destroy($c->id);
             $data['Bumon'] = $data['new_categoryName'];
             Category::create($data);
+            $message = "更新しました。";
         }
 
 
-        return Redirect::route('employees.index');
+        return Redirect::route('employees.index')->with('message',$message);
 
 	}
 
