@@ -40,7 +40,7 @@ class DataFromIOsController extends \BaseController {
 
 		Datafromio::create($data);
 
-		return Redirect::route('datafromios.index');
+		return Redirect::route('dataFromIOs.index');
 	}
 
 	/**
@@ -88,7 +88,7 @@ class DataFromIOsController extends \BaseController {
 
 		$datafromio->update($data);
 
-		return Redirect::route('datafromios.index');
+		return Redirect::route('dataFromIOs.index');
 	}
 
 	/**
@@ -99,9 +99,11 @@ class DataFromIOsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
+        $id = Input::get('id');
 		Datafromio::destroy($id);
 
-		return Redirect::route('datafromios.index');
+        $message = "削除しました。";
+		return Redirect::route('dataFromIOs.index')->with('message', $message);
 	}
 
     public function clear()
