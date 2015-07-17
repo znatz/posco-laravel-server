@@ -11,6 +11,7 @@
 <body>
 <div class="container">
     @include('layout.navbar')
+    @include('message.form')
     @yield('contents')
     @yield('contents2')
 </div>
