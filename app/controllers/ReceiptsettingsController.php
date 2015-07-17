@@ -88,9 +88,9 @@ class ReceiptsettingsController extends \BaseController {
 		}
 
 		$receiptsetting->update($data);
+        $message = "更新しました。";
 
-//		return Redirect::route('receiptsettings.index');
-        return Redirect::route('settings.index');
+        return Redirect::route('settings.index')->with('message',$message);
 	}
 
 	/**

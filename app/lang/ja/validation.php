@@ -55,7 +55,7 @@ return array(
 	"not_in"               => "The selected :attribute is invalid.",
 	"numeric"              => "The :attribute must be a number.",
 	"regex"                => "The :attribute format is invalid.",
-	"required"             => ":attributeに入力してください。",
+	"required"             => ":attributeを入力してください。",
 	"required_if"          => "The :attribute field is required when :other is :value.",
 	"required_with"        => "The :attribute field is required when :values is present.",
 	"required_with_all"    => "The :attribute field is required when :values is present.",
@@ -100,13 +100,21 @@ return array(
 	*/
 
 	'attributes' => array(
-        'email'    => 'Eメール',
-        'password' => 'パスワード',
-        'name'     => '名前',
-        'new_name' => '新しい名前',
-        'Bumon'    => '部門名',
+        'email'         => 'Eメール',
+        'password'      => 'パスワード',
+        'name'          => '名前',
+        'new_name'      => '新しい名前',
+        'Bumon'         => '部門名',
+        'Tenpo'         => '店舗名',
+        'title'         => '商品名',
+        'genka'         => '原価',
+        'price'         => '価格',
+        'Kosu'          => '個数',
+        'tempo'         => '店舗名',
+        'reji'          => 'レジ番号',
+        'receipt'       => 'レシート初期値',
+        'tax'           => '消費税率',
         'new_categoryName' => '新しい部門名',
-        'Tenpo'    => '店舗名',
         ),
 
 );

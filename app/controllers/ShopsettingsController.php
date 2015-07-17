@@ -88,9 +88,9 @@ class ShopsettingsController extends \BaseController {
 		}
 
 		$shopsetting->update($data);
+        $message = "更新しました。";
 
-//		return Redirect::route('shopsettings.index');
-        return Redirect::route('settings.index');
+        return Redirect::route('settings.index')->with('message',$message);
 	}
 
 	/**

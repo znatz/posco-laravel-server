@@ -1,15 +1,17 @@
 <?php
 
-class Shopsetting extends \Eloquent {
+class Shopsetting extends \Eloquent
+{
 
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required'
-	];
+    public static $rules = [
+        'tempo' => 'required',
+        'reji' => 'required',
+        'receipt' => 'required',
+    ];
 
     protected $connection = 'sqlite2';
     protected $table = "ShopSettings";
-	protected $fillable = ['tempo', 'reji', 'receipt'];
+    protected $fillable = ['tempo', 'reji', 'receipt'];
     public $timestamps = false;
 
 

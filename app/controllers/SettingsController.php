@@ -91,7 +91,8 @@ class SettingsController extends \BaseController
         if (Input::has('modeSetting')) {
             $setting->update($data);
         }
-        return Redirect::route('settings.index');
+        $message = "更新しました。";
+        return Redirect::route('settings.index')->with('message',$message);
     }
 
     /**

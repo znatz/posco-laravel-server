@@ -41,10 +41,12 @@ class ShopsController extends \BaseController
 
         /* Shop */
         if (Input::has('createShop')) Shop::create($data);
+        $message = "登録しました。";
 
         if (Input::has('deleteShop')) {
             $s = Shop::where('Tenpo', Input::get('Tenpo'))->first();
             Shop::destroy($s->id);
+            $message = "削除しました。";
         }
 
         if (Input::has('updateShop')) {
@@ -63,10 +65,11 @@ class ShopsController extends \BaseController
             Shop::destroy($s->id);
             $data['Tenpo'] = $data['new_shopName'];
             Shop::create($data);
+            $message = "更新しました。";
         }
 
 
-        return Redirect::route('employees.index');
+        return Redirect::route('employees.index')->with('message',$message);
 
 
     }

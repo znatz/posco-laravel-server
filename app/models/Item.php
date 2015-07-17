@@ -4,7 +4,11 @@ class Item extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-		// 'title' => 'required'
+		 'title' => 'required',
+		 'price' => 'required',
+		 'genka' => 'required',
+         'Bumon' => 'required',
+		 'Kosu'  => 'required',
 	];
 
 	// Don't forget to fill this array
