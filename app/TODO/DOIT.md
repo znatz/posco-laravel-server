@@ -1,5 +1,15 @@
 http://kodeinfo.com/post/secure-login-system-phplaravel-1
 http://blog.fagai.net/2014/05/27/laravel4-sentry-auth-tutorial/
+
+Japan Validation lang/ja/validation.php
+https://github.com/laravel-ja/laravel/blob/master/app/lang/ja/validation.php
+
+Javascript Notification
+http://sciactive.github.io/pnotify/
+
+image validator rules laravel
+http://packalyst.com/packages/package/cviebrock/image-validator
+
 Laravel logo Laravel
 5.1
 Documentation Laracasts Lumen Services  Conference  Community

@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="img/tab_icon.png">
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     {{HTML::style(asset('css/bootstrap.css'))}}
 {{--    {{HTML::style(asset('css/bootstrap-table.css'))}}--}}
