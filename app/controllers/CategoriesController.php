@@ -49,6 +49,9 @@ class CategoriesController extends \BaseController {
             $c = Category::where('Bumon', Input::get('Bumon'))->first();
             Category::destroy($c->id);
             $message = "削除しました。";
+			if (Input::has('selectedCategory')) {
+				Input::replace(array('selectedCategory', '')) ;
+			}
         }
 
         if (Input::has('updateCategory')) {

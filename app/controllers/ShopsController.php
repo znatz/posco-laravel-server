@@ -47,6 +47,9 @@ class ShopsController extends \BaseController
             $s = Shop::where('Tenpo', Input::get('Tenpo'))->first();
             Shop::destroy($s->id);
             $message = "削除しました。";
+            if (Input::has('selectedShop')) {
+                Input::replace(array('selectedShop', '')) ;
+            }
         }
 
         if (Input::has('updateShop')) {

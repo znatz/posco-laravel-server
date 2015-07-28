@@ -5,12 +5,29 @@ class EmployeesController extends \BaseController
 
     public function index()
     {
+        /* Employee selected by clicking radio button */
+        /* ! Remember to clear Input if this is redirected from delete !*/
+        $selectedEmployee = new Employee();
+        if (Input::has('selectedEmployee')) {
+            $selectedEmployee = Employee::find(Input::get('selectedEmployee')) ;
+        }
+
+        $selectedCategory = new Category();
+        if (Input::has('selectedCategory')) {
+            $selectedCategory = Category::find(Input::get('selectedCategory')) ;
+        }
+
+        $selectedShop = new Shop();
+        if (Input::has('selectedShop')) {
+            $selectedShop = Shop::find(Input::get('selectedShop')) ;
+        }
+
         $employees = Employee::all();
         $categories = Category::all();
         $shops = Shop::all();
 
         $item = new Item();
-        return View::make('employees.index', compact('employees', 'item', 'categories', 'shops'));
+        return View::make('employees.index', compact('employees', 'item', 'categories', 'shops', 'selectedEmployee', 'selectedCategory', 'selectedShop'));
     }
 
     public function create()
@@ -20,6 +37,7 @@ class EmployeesController extends \BaseController
 
     public function store()
     {
+
         $validator = Validator::make($data = Input::all(), Employee::$rules);
 
         if ($validator->fails()) {
@@ -34,6 +52,9 @@ class EmployeesController extends \BaseController
             $e = Employee::where('name', Input::get('name'))->first();
             Employee::destroy($e->id);
             $message = "削除しました。";
+            if (Input::has('selectedEmployee')) {
+                Input::replace(array('selectedEmployee', '')) ;
+            }
         }
 
         if (Input::has('updateEmployee')) {

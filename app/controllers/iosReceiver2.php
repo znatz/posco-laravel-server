@@ -1,6 +1,6 @@
 <?php
 
-class iosReceiver extends \BaseController
+class iosReceiver2 extends \BaseController
 {
     public static function showtransfer($f)
     {

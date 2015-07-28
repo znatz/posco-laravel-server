@@ -6,7 +6,7 @@
             {{Form::label('name', '担当者名', ['class' => 'control-label'])}}
         </div>
         <div class="col-md-7">
-            {{Form::text('name', '', ['class' => 'form-control'])}}
+            {{Form::text('name', show_if_exists($selectedEmployee->name), ['class' => 'form-control'])}}
         </div>
     </div>
     <div class="row form-group">
@@ -34,19 +34,26 @@
     </div>
     {{Form::close()}}
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-7">
+            {{Form::open(['route'=>'employees.index', 'method'=>'get'])}}
             <table class="table table-striped table-bordered table-hover table-condensed">
                 <tr class="row text-center">
-                    <td class="mark">
+                    <td class="mark col-md-4">
+                        選択
+                    </td>
+                    <td class="mark col-md-9">
                         登録済み担当者
                     </td>
                 </tr>
                 @foreach($employees as $e)
                     <tr class="row text-center">
+                        <td> {{Form::radio('selectedEmployee', $e->id,$e->id == $selectedEmployee->id, ['onclick' => 'javascript:submit()' ] )}}</td>
                         <td>{{ $e->name }}</td>
                     </tr>
                 @endforeach
             </table>
+            {{Form::submit('Select Employee', ['name' => 'targetEmployee', 'style'=>'display:none'])}}
+            {{Form::close()}}
         </div>
     </div>
 @stop
@@ -57,7 +64,7 @@
             {{Form::label('Bumon', '部門名', ['class' => 'control-label'])}}
         </div>
         <div class="col-md-7">
-            {{Form::text('Bumon', '', ['class' => 'form-control'])}}
+            {{Form::text('Bumon', show_if_exists($selectedCategory->Bumon), ['class' => 'form-control'])}}
         </div>
     </div>
     <div class="row form-group">
@@ -86,18 +93,25 @@
     {{Form::close()}}
     <div class="row">
         <div class="col-md-6">
+            {{Form::open(['route'=>'employees.index', 'method'=>'get'])}}
             <table class="table table-striped table-bordered table-hover table-condensed">
                 <tr class="row text-center">
-                    <td class="mark">
+                    <td class="mark col-md-4">
+                        選択
+                    </td>
+                    <td class="mark col-md-9">
                         登録済み部門
                     </td>
                 </tr>
                 @foreach($categories as $c)
                     <tr class="row text-center">
+                        <td> {{Form::radio('selectedCategory', $c->id,$c->id == $selectedCategory->id, ['onclick' => 'javascript:submit()' ] )}}</td>
                         <td>{{ $c->Bumon }}</td>
                     </tr>
                 @endforeach
             </table>
+            {{Form::submit('Select Category', ['name' => 'targetCategory', 'style'=>'display:none'])}}
+            {{Form::close()}}
         </div>
     </div>
 @stop
@@ -109,7 +123,7 @@
             {{Form::label('Tenpo', '店舗名', ['class' => 'control-label'])}}
         </div>
         <div class="col-md-7">
-            {{Form::text('Tenpo', '', ['class' => 'form-control'])}}
+            {{Form::text('Tenpo', show_if_exists($selectedShop->Tenpo), ['class' => 'form-control'])}}
         </div>
     </div>
     <div class="row form-group">
@@ -138,14 +152,19 @@
     {{Form::close()}}
     <div class="row">
         <div class="col-md-6">
+            {{Form::open(['route'=>'employees.index', 'method'=>'get'])}}
             <table class="table table-striped table-bordered table-hover table-condensed">
                 <tr class="row text-center">
-                    <td class="mark">
+                    <td class="mark col-md-4">
+                        選択
+                    </td>
+                    <td class="mark col-md-9">
                         登録済み店舗
                     </td>
                 </tr>
                 @foreach($shops as $s)
                     <tr class="row text-center">
+                        <td> {{Form::radio('selectedShop', $s->id,$s->id == $selectedShop->id, ['onclick' => 'javascript:submit()' ] )}}</td>
                         <td>{{ $s->Tenpo }}</td>
                     </tr>
                 @endforeach
