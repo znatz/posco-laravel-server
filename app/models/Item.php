@@ -12,6 +12,7 @@ class Item extends \Eloquent {
 	];
 
 	// Don't forget to fill this array
+	protected $connection = 'sqlite';
     protected $table = "BTSMAS";
 	protected $fillable = ['title', 'price', 'genka', 'Bumon', 'contents', 'Kosu'];
     public $timestamps = false;

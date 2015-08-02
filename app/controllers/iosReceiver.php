@@ -14,6 +14,7 @@ class iosReceiver extends \BaseController
             $d->kosu = $m["kosu"];
             $d->time = $m["time"];
             $d->receiptNo = $m["receiptNo"];
+            $d->tableNO = $m["tableNO"];
             $d->save();
         }
         unlink($f);

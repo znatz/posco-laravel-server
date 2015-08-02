@@ -3,21 +3,24 @@
     <table class="table table-bordered text-center">
         <thead>
         <tr class="row mark">
-            <td class="col-md-1">担当者ID
-            </th>
+            <td class="col-md-1">担当者
+            </td>
+            <td class="col-md-1">テーブル
+            </td>
             <td class="col-md-3">商品名
-            </th>
+            </td>
             <td class="col-md-1">個数
-            </th>
+            </td>
             <td class="col-md-2">時間
-            </th>
+            </td>
             <td class="col-md-2">処理
-            </th>
+            </td>
         </tr>
         </thead>
         @foreach($datafromios as $d)
             <tr class="row">
-                <td class="col-md-1">{{$d->tanto}}</td>
+                <td class="col-md-1">{{Employee::find($d->tanto)->name}}</td>
+                <td class="col-md-1">{{$d->tableNO}}</td>
                 <td class="col-md-3">{{$d->goodsTitle}}</td>
                 <td class="col-md-1">{{$d->kosu}}</td>
                 <td class="col-md-2">{{$d->time}}</td>

@@ -58,6 +58,12 @@ return array(
 			'prefix'   => '',
 		),
 
+		'cashierClient' => array(
+			'driver'   => 'sqlite',
+			'database' => __DIR__.'/../database/Cashier.sqlite',
+			'prefix'   => '',
+		),
+
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
