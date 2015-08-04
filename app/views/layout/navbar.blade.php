@@ -14,6 +14,7 @@
                     <li><a href="{{URL::to('/')}}">ホーム</a></li>
                     <li><a href="{{URL::route('dataFromIOs.index')}}">最新注文</a></li>
                     <li><a href="{{URL::route('Receiptrecords.index')}}">全注文一覧</a></li>
+                    <li><a href="{{URL::route('payments.index')}}">会計一覧</a></li>
                     <li><a href="#">テスト</a></li>
 
                     <li class="dropdown">

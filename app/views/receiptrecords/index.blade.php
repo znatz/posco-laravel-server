@@ -9,15 +9,17 @@
             </td>
             <td class="col-md-1">レシート
             </td>
-            <td class="col-md-3">商品名
+            <td class="col-md-2">商品名
             </td>
             <td class="col-md-1">価格
             </td>
             <td class="col-md-1">個数
             </td>
+            <td class="col-md-1">支払い番号
+            </td>
             <td class="col-md-2">注文時間
             </td>
-            <td class="col-md-2">状態
+            <td class="col-md-1">状態
             </td>
         </tr>
         </thead>
@@ -26,11 +28,12 @@
                 <td class="col-md-1">{{Employee::find($r->tantoID)->name}}</td>
                 <td class="col-md-1">{{$r->tableNO}}</td>
                 <td class="col-md-1">{{$r->receiptNo}}</td>
-                <td class="col-md-3">{{$r->goodsTitle}}</td>
+                <td class="col-md-2">{{$r->goodsTitle}}</td>
                 <td class="col-md-1">{{$r->price}}</td>
                 <td class="col-md-1">{{$r->kosu}}</td>
+                <td class="col-md-1">{{$r->payment_id}}</td>
                 <td class="col-md-2">{{$r->orderTime}}</td>
-                <td class="col-md-2">{{$r->progress}}</td>
+                <td class="col-md-1">{{$r->progress}}</td>
                 </td>
             </tr>
         @endforeach

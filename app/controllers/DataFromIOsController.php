@@ -122,11 +122,11 @@ class DataFromIOsController extends \BaseController {
 			$receipt_record = Receiptrecord::where('receiptNo', $m->receiptNo)->first();
 			$receipt_record->serveTime = date("Y年m月d日 h:i:sa");
 			$receipt_record->price     = $i->price;
-			$receipt_record->progress  = "SERVERD";
+			$receipt_record->progress  = "提供済み";
 			$receipt_record->save();
 
 			/* remove from ordered items */
-//			Datafromio::destroy($id);
+			Datafromio::destroy($id);
 
 			$message = "未清算注文へ転送しました。";
 			return Redirect::route('dataFromIOs.index')->with('message', $message);

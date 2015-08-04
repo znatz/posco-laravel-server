@@ -27,7 +27,7 @@
                 <td class="col-md-2">{{Form::open(['route'=>'dataFromIOs.destroy', 'method'=>'DELETE'])}}
                     {{Form::text('id', $d->id, ['style'=>'display:none'])}}
                     {{Form::submit('削除', ['class' =>'btn btn-sm'])}}
-                    {{Form::submit('提供済み',['name' => 'ReadyForPayment','class' =>'btn btn-sm'])}}
+                    {{Form::submit('提供済みへ',['name' => 'ReadyForPayment','class' =>'btn btn-sm'])}}
                     {{Form::close()}}
                 </td>
             </tr>

@@ -7,12 +7,29 @@ class CashierReceiver extends \BaseController
         $file_db = new PDO('sqlite:' . $f);
         $file_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $result = $file_db->query('SELECT * FROM transactions;');
+        $receiptNO = "" ;
        foreach ($result as $m) {
            $receiptNo   = $m["receiptNo"];
            $receiptRecords = Receiptrecord::where('receiptNo', $receiptNo)->first();
            $receiptRecords->payment_id = $m['payment_id'];
            $receiptRecords->progress   = "支払い済み";
            $receiptRecords->save();
+        }
+
+        $receiptlines = ReceiptLine::where('receiptNo', $receiptNo)->first();
+		ReceiptLine::destroy($receiptlines->id);
+
+        $file_db = new PDO('sqlite:' . $f);
+        $file_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $result = $file_db->query('SELECT * FROM payments;');
+       foreach ($result as $m) {
+           $payment           = new Payment();
+           $payment->id       = $m["id"];
+           $payment->payment  = $m["payment"];
+           $payment->changes  = $m["changes"];
+           $payment->price    = $m["price"];
+           $payment->time     = $m["time"];
+           $payment->save();
         }
 
         unlink($f);

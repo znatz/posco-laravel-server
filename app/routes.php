@@ -21,6 +21,7 @@ Route::post('/iosReceiver2', "iosReceiver2@index");
 
 Route::resource('receipt_lines', 'ReceiptLinesController');
 Route::resource('Receiptrecords', 'ReceiptrecordsController');
+Route::resource('payments', 'PaymentsController');
 
 Route::group(['before' => 'sentry'], function () {
     Route::resource('dataFromIOs', 'DataFromIOsController');
