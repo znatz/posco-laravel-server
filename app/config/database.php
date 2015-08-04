@@ -64,6 +64,12 @@ return array(
 			'prefix'   => '',
 		),
 
+		'ReceiptMaster' => array(
+			'driver'   => 'sqlite',
+			'database' => __DIR__.'/../database/ReceiptMaster.sqlite',
+			'prefix'   => '',
+		),
+
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',

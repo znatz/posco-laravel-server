@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateReceiptLinesTable extends Migration {
+class CreateReceiptrecordsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,16 +12,20 @@ class CreateReceiptLinesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::connection('cashierClient')->create('receipt_lines', function(Blueprint $table)
+		Schema::connection('ReceiptMaster')->create('Receiptrecords', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->text('tantoID');
-			$table->text('goodsTitle');
-			$table->integer('kosu');
-			$table->text('time');
 			$table->text('receiptNo');
 			$table->text('tableNO');
+			$table->text('goodsTitle');
+			$table->integer('kosu');
 			$table->integer('price');
+			$table->text('orderTime');
+			$table->text('serveTime');
+			$table->text('paymentTime');
+			$table->integer('payment_id');
+			$table->text('progress');
 			$table->timestamps();
 		});
 	}
@@ -34,7 +38,7 @@ class CreateReceiptLinesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::connection('cashierClient')->drop('receipt_lines');
+		Schema::connection('ReceiptMaster')->drop('Receiptrecords');
 	}
 
 }

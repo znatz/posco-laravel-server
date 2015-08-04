@@ -3,15 +3,15 @@
 class ReceiptLinesController extends \BaseController {
 
 	/**
-	 * Display a listing of receiptlines
+	 * Display a listing of receipt_lines
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-		$receiptlines = Receiptline::all();
+		$receipt_lines = ReceiptLine::all();
 
-		return View::make('receiptlines.index', compact('receiptlines'));
+		return View::make('receipt_lines.index', compact('receipt_lines'));
 	}
 
 	/**
@@ -21,7 +21,7 @@ class ReceiptLinesController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('receiptlines.create');
+		return View::make('receipt_lines.create');
 	}
 
 	/**
@@ -31,16 +31,16 @@ class ReceiptLinesController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Receiptline::$rules);
+		$validator = Validator::make($data = Input::all(), ReceiptLine::$rules);
 
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Receiptline::create($data);
+		ReceiptLine::create($data);
 
-		return Redirect::route('receiptlines.index');
+		return Redirect::route('receipt_lines.index');
 	}
 
 	/**
@@ -51,9 +51,9 @@ class ReceiptLinesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$receiptline = Receiptline::findOrFail($id);
+		$receiptline = ReceiptLine::findOrFail($id);
 
-		return View::make('receiptlines.show', compact('receiptline'));
+		return View::make('receipt_lines.show', compact('receiptline'));
 	}
 
 	/**
@@ -64,9 +64,9 @@ class ReceiptLinesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$receiptline = Receiptline::find($id);
+		$receiptline = ReceiptLine::find($id);
 
-		return View::make('receiptlines.edit', compact('receiptline'));
+		return View::make('receipt_lines.edit', compact('receiptline'));
 	}
 
 	/**
@@ -77,9 +77,9 @@ class ReceiptLinesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$receiptline = Receiptline::findOrFail($id);
+		$receiptline = ReceiptLine::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Receiptline::$rules);
+		$validator = Validator::make($data = Input::all(), ReceiptLine::$rules);
 
 		if ($validator->fails())
 		{
@@ -88,7 +88,7 @@ class ReceiptLinesController extends \BaseController {
 
 		$receiptline->update($data);
 
-		return Redirect::route('receiptlines.index');
+		return Redirect::route('receipt_lines.index');
 	}
 
 	/**
@@ -99,9 +99,9 @@ class ReceiptLinesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Receiptline::destroy($id);
+		ReceiptLine::destroy($id);
 
-		return Redirect::route('receiptlines.index');
+		return Redirect::route('receipt_lines.index');
 	}
 
 }

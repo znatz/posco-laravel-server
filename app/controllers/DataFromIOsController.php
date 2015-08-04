@@ -96,11 +96,45 @@ class DataFromIOsController extends \BaseController {
 	 *
 	 * @param  int  $id
 	 * @return Response
+	 * @todo Separate operation for Datafromio and ReceiptLine
 	 */
 	public function destroy($id)
 	{
+		if (Input::has('ReadyForPayment')) {
+
+            $id = Input::get('id');
+			$m = Datafromio::find($id);
+			$i = Item::where('title', $m->goodsTitle)->first();
+
+			/* save to Cashier.sqlite */
+			$r = new ReceiptLine();
+               $r->tantoID 		= $m->tanto;
+               $r->goodsTitle	= $m->goodsTitle;;
+               $r->kosu 		= $m->kosu;
+               $r->time 		= $m->time;
+               $r->receiptNo 	= $m->receiptNo;
+               $r->tableNO 		= $m->tableNO;;
+               $r->price 		= $i->price;
+               $r->save();
+
+
+			/* log to ReceiptMaster.sqlite */
+			$receipt_record = Receiptrecord::where('receiptNo', $m->receiptNo)->first();
+			$receipt_record->serveTime = date("Y年m月d日 h:i:sa");
+			$receipt_record->price     = $i->price;
+			$receipt_record->progress  = "SERVERD";
+			$receipt_record->save();
+
+			/* remove from ordered items */
+//			Datafromio::destroy($id);
+
+			$message = "未清算注文へ転送しました。";
+			return Redirect::route('dataFromIOs.index')->with('message', $message);
+		}
+
         $id = Input::get('id');
 		Datafromio::destroy($id);
+		ReceiptLine::destroy($id);
 
         $message = "削除しました。";
 		return Redirect::route('dataFromIOs.index')->with('message', $message);
@@ -109,6 +143,7 @@ class DataFromIOsController extends \BaseController {
     public function clear()
     {
         Datafromio::truncate();
+		ReceiptLine::truncate();
         return Redirect::route('dataFromIOs.index');
     }
 

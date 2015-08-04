@@ -15,11 +15,13 @@
             </td>
             <td class="col-md-1">個数
             </td>
-            <td class="col-md-2">時間
+            <td class="col-md-2">注文時間
+            </td>
+            <td class="col-md-2">状態
             </td>
         </tr>
         </thead>
-        @foreach($receipt_lines as $r)
+        @foreach($receiptrecords as $r)
             <tr class="row">
                 <td class="col-md-1">{{Employee::find($r->tantoID)->name}}</td>
                 <td class="col-md-1">{{$r->tableNO}}</td>
@@ -27,8 +29,9 @@
                 <td class="col-md-3">{{$r->goodsTitle}}</td>
                 <td class="col-md-1">{{$r->price}}</td>
                 <td class="col-md-1">{{$r->kosu}}</td>
-                <td class="col-md-2">{{$r->time}}</td>
-               </td>
+                <td class="col-md-2">{{$r->orderTime}}</td>
+                <td class="col-md-2">{{$r->progress}}</td>
+                </td>
             </tr>
         @endforeach
     </table>
