@@ -119,7 +119,7 @@ class DataFromIOsController extends \BaseController {
 
 
 			/* log to ReceiptMaster.sqlite */
-			$receipt_record = Receiptrecord::where('receiptNo', $m->receiptNo)->first();
+			$receipt_record = Receiptrecord::where(['receiptNo'=> $m->receiptNo, 'goodsTitle'=>$m->goodsTitle])->first();
 			$receipt_record->serveTime = date("Y年m月d日 h:i:sa");
 			$receipt_record->price     = $i->price;
 			$receipt_record->progress  = "提供済み";

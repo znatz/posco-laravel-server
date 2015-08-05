@@ -3,7 +3,7 @@
     <table class="table table-bordered text-center">
         <thead>
         <tr class="row mark">
-            <td class="col-md-1">ID
+            <td class="col-md-2">UUID
             </td>
             <td class="col-md-2">価格
             </td>
@@ -17,7 +17,7 @@
         </thead>
         @foreach($payments as $d)
             <tr class="row">
-                <td class="col-md-1">{{$d->id}}</td>
+                <td class="col-md-2">{{$d->uuid}}</td>
                 <td class="col-md-2">{{$d->price}}</td>
                 <td class="col-md-2">{{$d->payment}}</td>
                 <td class="col-md-2">{{$d->changes}}</td>
