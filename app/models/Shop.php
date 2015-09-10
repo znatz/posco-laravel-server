@@ -12,7 +12,8 @@ class Shop extends \Eloquent {
         'new_shopName' => 'required',
     ];
 	// Don't forget to fill this array
-    protected $table = "BMIMAS";
+//    protected $table = "BMIMAS";
+    protected $table = "shops";
 	protected $fillable = ["Tenpo"];
     public $timestamps = false;
 

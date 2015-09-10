@@ -3,25 +3,28 @@
     <table class="table table-bordered text-center">
         <thead>
         <tr class="row mark">
-            <td class="col-md-2">UUID
+            <td class="col-md-4">UUID
             </td>
-            <td class="col-md-2">価格
+            <td class="col-md-1">価格
             </td>
             <td class="col-md-2">お支払い
             </td>
-            <td class="col-md-2">お釣り
+            <td class="col-md-1">お釣り
             </td>
             <td class="col-md-2">時間
+            </td>
+            <td class="col-md-2">精算担当
             </td>
         </tr>
         </thead>
         @foreach($payments as $d)
             <tr class="row">
-                <td class="col-md-2">{{$d->uuid}}</td>
-                <td class="col-md-2">{{$d->price}}</td>
-                <td class="col-md-2">{{$d->payment}}</td>
-                <td class="col-md-2">{{$d->changes}}</td>
+                <td class="col-md-4">{{$d->uuid}}</td>
+                <td class="col-md-1 text-right">{{ number_format($d->price) }}</td>
+                <td class="col-md-2 text-right">{{ number_format($d->payment) }}</td>
+                <td class="col-md-1 text-right">{{ number_format($d->changes) }}</td>
                 <td class="col-md-2">{{$d->time}}</td>
+                <td class="col-md-2">{{$d->employeeName}}</td>
             </tr>
         @endforeach
     </table>

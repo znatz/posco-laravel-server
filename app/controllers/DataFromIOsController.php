@@ -9,7 +9,7 @@ class DataFromIOsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$datafromios = Datafromio::all();
+		$datafromios = Datafromio::orderBy('time', 'desc')->get();
 
 		return View::make('datafromios.index', compact('datafromios'));
 	}

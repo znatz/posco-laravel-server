@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('contents')
+@section('contents2')
     {{Form::open(['route'=>'employees.store', 'method'=>'post'])}}
     <div class="row form-group">
         <div class="col-md-4">
@@ -7,6 +7,15 @@
         </div>
         <div class="col-md-7">
             {{Form::text('name', show_if_exists($selectedEmployee->name), ['class' => 'form-control'])}}
+        </div>
+    </div>
+     <div class="row form-group">
+        <div class="col-md-4">
+            {{Form::label('tenpo', '店舗', ['class' => 'control-label'])}}
+        </div>
+        <div class="col-md-7">
+            <? foreach ($shops as $s) { $shop_pairs[$s->id] = $s->Tenpo;} ?>
+            {{Form::select('shop', $shop_pairs, $selectedEmployee->shop, ['class'=>'form-control'])}}
         </div>
     </div>
     <div class="row form-group">
@@ -34,21 +43,25 @@
     </div>
     {{Form::close()}}
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-13">
             {{Form::open(['route'=>'employees.index', 'method'=>'get'])}}
             <table class="table table-striped table-bordered table-hover table-condensed">
                 <tr class="row text-center">
-                    <td class="mark col-md-4">
+                    <td class="mark col-md-2">
                         選択
                     </td>
-                    <td class="mark col-md-9">
+                    <td class="mark col-md-7">
                         登録済み担当者
+                    </td>
+                    <td class="mark col-md-3">
+                        所属
                     </td>
                 </tr>
                 @foreach($employees as $e)
                     <tr class="row text-center">
                         <td> {{Form::radio('selectedEmployee', $e->id,$e->id == $selectedEmployee->id, ['onclick' => 'javascript:submit()' ] )}}</td>
                         <td>{{ $e->name }}</td>
+                        <td>{{ Shop::find($e->shop)->Tenpo }}</td>
                     </tr>
                 @endforeach
             </table>
@@ -57,7 +70,7 @@
         </div>
     </div>
 @stop
-@section('contents2')
+@section('contents3')
     {{Form::open(['route'=>'categories.store', 'method'=>'post'])}}
     <div class="row form-group">
         <div class="col-md-4">
@@ -116,7 +129,7 @@
     </div>
 @stop
 
-@section('contents3')
+@section('contents')
     {{Form::open(['route'=>'shops.store', 'method'=>'post'])}}
     <div class="row form-group">
         <div class="col-md-4">
@@ -169,6 +182,7 @@
                     </tr>
                 @endforeach
             </table>
+            {{Form::close()}}
         </div>
     </div>
 @stop

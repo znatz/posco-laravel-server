@@ -31,10 +31,19 @@
                 <td class="col-md-2">{{$r->goodsTitle}}</td>
                 <td class="col-md-1">{{$r->price}}</td>
                 <td class="col-md-1">{{$r->kosu}}</td>
-                <td class="col-md-1">{{$r->payment_id}}</td>
+                @if($r->payment_id == '0')
+                    <td class="col-md-1">-</td>
+                @else
+                    <td class="col-md-1">{{link_to_action('payments.show', str_limit($r->payment_id, 5, '...'), $r->payment_id)}}</td>
+                @endif
                 <td class="col-md-2">{{$r->orderTime}}</td>
-                <td class="col-md-1">{{$r->progress}}</td>
-                </td>
+                @if($r->progress  == '支払い済み')
+                    <td class="col-md-1 bg-info"><h6>{{$r->progress}}</h6></td>
+                @elseif($r->progress == '提供済み')
+                    <td class="col-md-1 bg-success"><h6>{{$r->progress}}</h6></td>
+                @else
+                    <td class="col-md-1 bg-warning"><h6>{{$r->progress}}</h6></td>
+                @endif
             </tr>
         @endforeach
     </table>

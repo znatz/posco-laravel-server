@@ -9,7 +9,7 @@ class ReceiptrecordsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$receiptrecords = Receiptrecord::all();
+		$receiptrecords = Receiptrecord::orderBy('serveTime', 'desc')->get();
 
 		return View::make('receiptrecords.index', compact('receiptrecords'));
 	}

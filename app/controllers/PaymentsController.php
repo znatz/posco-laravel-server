@@ -51,7 +51,8 @@ class PaymentsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$payment = Payment::findOrFail($id);
+//		$payment = Payment::findOrFail($id);
+		$payment = Payment::where('uuid', $id)->first();
 
 		return View::make('payments.show', compact('payment'));
 	}

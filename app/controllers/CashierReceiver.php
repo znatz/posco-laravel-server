@@ -13,15 +13,16 @@ class CashierReceiver extends \BaseController
 
         }
 
+        $receiptlines = ReceiptLine::where('receiptNo', $receiptNo)->get();
+        foreach ($receiptlines as $receiptline) {
+            ReceiptLine::destroy($receiptline->id);
+        }
+
         $receiptRecords = Receiptrecord::where(['receiptNo' => $receiptNo, 'progress' => '提供済み'])->get();
         foreach ($receiptRecords as $receiptRecord) {
             $receiptRecord->payment_id = $m['payment_id'];
             $receiptRecord->progress = "支払い済み";
             $receiptRecord->save();
-        }
-        $receiptlines = ReceiptLine::where('receiptNo', $receiptNo)->get();
-        foreach ($receiptlines as $receiptline) {
-            ReceiptLine::destroy($receiptline->id);
         }
 
         $file_db = new PDO('sqlite:' . $f);
@@ -29,11 +30,13 @@ class CashierReceiver extends \BaseController
         $result = $file_db->query('SELECT * FROM payments;');
         foreach ($result as $m) {
             $payment = new Payment();
-            $payment->price = $m["price"];
-            $payment->payment = $m["payment"];
-            $payment->changes = $m["changes"];
-            $payment->time = $m["time"];
-            $payment->uuid = $m["uuid"];
+            $payment->price         = $m["price"];
+            $payment->payment       = $m["payment"];
+            $payment->changes       = $m["changes"];
+            $payment->time          = $m["time"];
+            $payment->uuid          = $m["uuid"];
+            $payment->shopName      = $m["shopName"];
+            $payment->employeeName  = $m["employeeName"];
             $payment->save();
         }
 

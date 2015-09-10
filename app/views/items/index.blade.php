@@ -50,33 +50,44 @@
         {{Form::text('idItem', $item->id, ['style'=>'display:none'])}}
     </div>
     {{Form::close()}}
+
 @stop
 
 @section('contents5')
+                <div>
+                <button id="recognitionStartButton" class="btn btn-default" type="button" value="recognitionStart">
+                    音声検索 <i class="fa fa-microphone fa-fw"></i>
+                </button>
+                <button id="recognitionStopButton" class="btn btn-default" type="button" value="recognitionStop">
+                    音声検索終了 <i class="fa fa-microphone-slash fa-fw"></i>
+                </button>
+                <div id="messageArea"></div>
+            </div>
     <? $items = Item::all(); ?>
     {{Form::open(['route'=>'items.store', 'method'=>'post', 'id'=>"item_form"])}}
-    <table class="table table-striped table-bordered table-hover table-condensed" data-toggle="table"
+    <table id="myTable" class="table table-striped table-bordered table-hover table-condensed" data-toggle="table"
            data-locale="ja-JP">
-        <thead>
+        <thead class="row">
         <tr class="row text-center mark">
-            <td>選択</td>
-            <td>商品名</td>
-            <td>価格</td>
-            <td>原価</td>
-            <td>部門</td>
-            <td>在庫</td>
-            <td>写真</td>
+            <th colspan="2">選択</th>
+            <th>商品名</th>
+            <th colspan="2">価格</th>
+            <th colspan="2">原価</th>
+            <th colspan="2">部門</th>
+            <th colspan="2">在庫</th>
+            <th colspan="2">写真</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         @foreach($items as $item)
             <tr class="row">
-                <td class="col-md-1 text-center">{{Form::radio('selectedItem',$item->id, false, ['id'=>'selectedItem'])}}</td>
-                <td>{{$item->title}}</td>
-                <td>{{$item->price}}</td>
-                <td>{{$item->genka}}</td>
-                <td>{{$item->Bumon}}</td>
-                <td>{{$item->Kosu}}</td>
+                <td class="col-md-1">{{Form::radio('selectedItem',$item->id, false, ['id'=>'selectedItem'])}}</td>
+                <td class="col-md-3">{{$item->title}}</td>
+                <td class="col-md-1">{{$item->price}}</td>
+                <td class="col-md-1">{{$item->genka}}</td>
+                <td class="col-md-2">{{$item->Bumon}}</td>
+                <td class="col-md-1">{{$item->Kosu}}</td>
                 <td class="col-md-1"><a href="#" class="pop"><img style="width:48px;height:42px;" id="imageresource" src='./item/{{$item->id}}' } class="img-responsive"/></a></td>
             </tr>
         @endforeach
