@@ -34,6 +34,10 @@ class ItemsController extends \BaseController {
 	 */
 	public function store()
 	{
+        if (Input::has('clearForm')) {
+            return Redirect::route('items.index');
+        }
+
         if (Input::get('selectedItem')) {
             $targetID = Input::get('selectedItem');
             $item = Item::find($targetID);
