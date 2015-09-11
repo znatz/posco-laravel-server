@@ -67,6 +67,7 @@ return array(
     'ShopsettingsController' => $baseDir . '/app/controllers/ShopsettingsController.php',
     'ShopsettingsTableSeeder' => $baseDir . '/app/database/seeds/ShopsettingsTableSeeder.php',
     'TestCase' => $baseDir . '/app/tests/TestCase.php',
+    'Testing' => $baseDir . '/app/controllers/testing.php',
     'User' => $baseDir . '/app/models/User.php',
     'Whoops\\Module' => $vendorDir . '/filp/whoops/src/deprecated/Zend/Module.php',
     'Whoops\\Provider\\Zend\\ExceptionStrategy' => $vendorDir . '/filp/whoops/src/deprecated/Zend/ExceptionStrategy.php',

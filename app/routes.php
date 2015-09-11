@@ -15,7 +15,7 @@ Route::get('/', function () {
     return View::make('auth.login');
 });
 
-Route::get('/test', "testing@index");
+Route::get('/test', ['as'=>'testing.index', 'uses'=>'testing@index']);
 
 Route::post('/iosReceiver', "iosReceiver@index");
 Route::post('/CashierReceiver', "CashierReceiver@index");

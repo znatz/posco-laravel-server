@@ -83,11 +83,10 @@
         </tr>
         </thead>
         <tbody>
-        <? $i=1; ?>
         @foreach($items as $item)
             <tr class="row">
-                <td class="col-md-1">{{Form::radio('selectedItem',$item->id, false, ['id'=>'selectedItem'])}}</td>
-                <td class="col-md-3">{{$i++."   ".$item->title}}</td>
+                <td class="col-md-1">{{Form::radio('selectedItem',$item->id, false, ['id'=>'selectedItem', 'data-soundID'=>$item->id])}}</td>
+                <td class="col-md-3">{{$item->id."   ".$item->title}}</td>
                 <td class="col-md-1">{{$item->price}}</td>
                 <td class="col-md-1">{{$item->genka}}</td>
                 <td class="col-md-2">{{$item->Bumon}}</td>

@@ -15,7 +15,7 @@
                     <li><a href="{{URL::route('dataFromIOs.index')}}">最新注文</a></li>
                     <li><a href="{{URL::route('Receiptrecords.index')}}">全注文一覧</a></li>
                     <li><a href="{{URL::route('payments.index')}}">会計一覧</a></li>
-                    <li><a href="#">テスト</a></li>
+                    <li><a href="{{URL::route('testing.index')}}">テスト</a></li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">マスタ管理<span class="caret"></span></a>

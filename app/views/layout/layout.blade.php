@@ -43,5 +43,9 @@
         </div>
     </div>
 </div>
+<div class="text-center">
+    {{ QrCode::size(100)->generate(Request::url()); }}
+    <p>この画面のアドレス</p>
+</div>
 </body>
 </html>

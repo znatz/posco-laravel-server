@@ -123,6 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
         'Cartalyst\Sentry\SentryServiceProvider',
+		'SimpleSoftwareIO\QrCode\QrCodeServiceProvider',
 
 	),
 
@@ -192,6 +193,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
         'Sentry'          => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Uuid' 			  => 'Webpatser\Uuid\Uuid',
+		'QrCode' 		  => 'SimpleSoftwareIO\QrCode\Facades\QrCode',
 
 	),
 

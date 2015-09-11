@@ -57,6 +57,18 @@
             });
 
 
+            if (!('webkitSpeechRecognition' in window)) {
+                $('#messageArea').html(
+                        "<p>webkitSpeechRecognitionが見つかりません。PC版のChromeで試してみてください。</p>"
+                );
+                return;
+            } else {
+                $('#messageArea').html(
+                        "<p>音声認識できるブラウザーです。</p>"
+                );
+            }
+
+
             if (!('SpeechSynthesisUtterance' in window)) {
                 $('#messageArea').html(
                         "<p>SpeechSynthesisUtteranceが見つかりません。PC版のChromeで試してみてください。</p>"
@@ -67,7 +79,6 @@
                         "<p>音声認識できるブラウザーです。</p>"
                 );
             }
-            ;
 
             var recognition = new webkitSpeechRecognition();
             recognition.continuous = true;
@@ -90,29 +101,66 @@
                 speechSynthesis.speak(synthes);
             }
 
+            recognition.lang = "ja-JP";
+            recognition.start();
 
             $('#recognitionStartButton').click(function () {
                 recognitionFormControl(true);
                 recognition.lang = "ja-JP";
-
                 recognition.start();
             });
             $('#recognitionStopButton').click(function () {
                 recognitionFormControl(false);
-
                 recognition.stop();
             });
 
 
+            var chnToNum = {
+                "一":1,
+                "二":2,
+                "三":3,
+                "四":4,
+                "五":5,
+                "ご":5,
+                "六":6,
+                "七":7,
+                "八":8,
+                "九":9,
+                "十":10,
+                "十一":11,
+                "十二":12
+            };
             function submitID(text) {
                 window.console.log("called :" + text);
                 index = text.substring(0, 1);
-                window.console.log(index);
 
-                speakUp(index + "番、了解しました。");
+                if (chnToNum.hasOwnProperty(index)) index = chnToNum[index];
+                window.console.log("index : " + index);
+                window.console.log ($("input[value=" + index + "]").length);
+                if ($("input[value=" + index + "]").length) {
+                    speakUp(index + "番、了解しました。");
+                } else {
+                    speakUp(index + "番、ありません。");
+                }
                 $("input[value=" + index + "]").attr('checked', 'checked');
                 $('#item_form').submit();
+            }
 
+            function submitID2(text) {
+                window.console.log("called :" + text);
+                index = text.substring(0, 2);
+
+                if (chnToNum.hasOwnProperty(index)) index = chnToNum[index];
+                window.console.log("index : " + index);
+                window.console.log ('input[value=' + index + ']');
+                window.console.log ($("input[value=" + index + "]").length);
+                if ($("input[value=" + index + "]").length) {
+                    speakUp(index + "番、了解しました。");
+                } else {
+                    speakUp(index + "番、ありません。");
+                }
+                $("input[value=" + index + "]").attr('checked', 'checked');
+                $('#item_form').submit();
             }
 
             function clearForm() {
@@ -121,14 +169,49 @@
                 $('input[name="clearForm"]').click();
             }
 
+            function changeSearch(text) {
+                window.console.log("Search : " + text);
+                $('input[type="search"]').val(text);
+                $('input[type="search"]').keyup();
+            }
+
+            function setFocus(name) {
+                $('input[name="' + name + '"').focus();
+            }
+
             recognition.onresult = function (e) {
                 var results = e.results;
                 for (var i = e.resultIndex; i < results.length; i++) {
-                    if (results[i].isFinal) {
-                        if (results[i][0].transcript.substring(1, 2) == "番") submitID(results[i][0].transcript);
-                        if (results[i][0].transcript.indexOf("クリア") != -1) clearForm();
-                        $('input[type="search"]').val(results[i][0].transcript).removeClass('isNotFinal');
-                        $('input[type="search"]').keyup();
+//                    if (results[i].isFinal) {
+                    count = 1;
+                    if (results[i].length > 0) {
+                        window.console.log(results[i][0].transcript);
+                        transcript = results[i][0].transcript;
+                        if (transcript.substring(1, 2) == "番") {
+                            submitID(transcript);
+                        } else if (transcript.substring(2, 3) == "番") {
+                            submitID2(transcript);
+                        } else if (transcript.substring(1, 3) == "ばん") {
+                            submitID(transcript);
+                        } else if (transcript.indexOf("クリア") != -1) {
+                            clearForm();
+                        } else if (transcript.indexOf("けして") != -1 || transcript.indexOf("決して") != -1) {
+                            changeSearch("");
+                        } else if (transcript.indexOf("商品名") != -1) {
+                            setFocus("title");
+                        } else if (transcript.indexOf("価格") != -1) {
+                            setFocus("price");
+                        } else if (transcript.indexOf("原価") != -1) {
+                            setFocus("genka");
+                        } else if (transcript.indexOf("部門") != -1) {
+                            setFocus("Bumon");
+                        } else if (transcript.indexOf("個数") != -1) {
+                            setFocus("Kosu");
+                        } else if (transcript.indexOf("探して") != -1) {
+                            transcript = transcript.replace("探して","");
+                            transcript = transcript.replace("を","");
+                            changeSearch(transcript);
+                        }
                         var confidence = results[i][0].confidence;
                         $('#messageArea').html(
                                 "<p>state: onresult<br>" +
@@ -136,14 +219,27 @@
                         );
 
                     } else {
-                        $('#recognitionText').val(results[i][0].transcript).addClass('isNotFinal');
+                        $('input[type="search"]').val(results[i][0].transcript).addClass('isNotFinal');
                     }
                 }
+            };
+/*
+
+            recognition.onsoundstart = function () {
+                speakUp("認識開始");
+            };
+*/
+
+            recognition.onsoundend = function () {
+                speakUp("認識終了");
+            }
+            recognition.onend = function (e) {
+                recognition.start();
             };
 
             function recognitionFormControl(start) {
                 if (start) {
-                    speakUp("どうぞ、しゃべってください。");
+                    speakUp("ご用件どうぞ。");
                     $('#recognitionStartButton').attr('disabled', 'true');
                     $('#recognitionStopButton').attr('disabled', 'false');
                     $('#recognitionStopButton').removeAttr('disabled');
@@ -181,6 +277,10 @@
         <div class="col-md-8">
             @yield('contents5')
         </div>
+    </div>
+    <div class="text-center">
+        {{ QrCode::size(100)->generate(Request::url()); }}
+        <p>この画面のアドレス</p>
     </div>
 </div>
 </body>

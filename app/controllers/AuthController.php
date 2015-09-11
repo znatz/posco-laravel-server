@@ -30,9 +30,9 @@ class AuthController extends BaseController
                 'email' => Input::get('email'),
                 'password' => Input::get('password'),
             ), true);
-            return Redirect::route('employee.index');
+            return Redirect::route('employees.index');
         } catch (Exception $e) {
-            $this->messageBag->add('all', Lang::get('auth/message.signup.error'));
+            $this->messageBag->add('all', Lang::get('auth/message.signup.error') . $e->getMessage());
         }
         return Redirect::back()->withInput()->withErrors($this->messageBag);
     }
