@@ -1,6 +1,3 @@
-<?php
-$str = file_get_contents("php://input");
-file_put_contents("/tmp/upload.jpg", pack("H*", $str));?>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -9,64 +6,129 @@ file_put_contents("/tmp/upload.jpg", pack("H*", $str));?>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     {{HTML::style(asset('css/bootstrap.css'))}}
     {{HTML::script(asset('js/bootstrap.js'))}}
-    {{HTML::script(asset('js/jquery.webcam.min.js'))}}
-    {{HTML::script(asset('js/jquery.webcam.js'))}}
     <title>HandyPOSサーバー</title>
     <script type="text/javascript">
         jQuery(document).ready(function () {
 
-            jQuery("#webcam").webcam({
 
-                width: 320,
-                height: 240,
-                mode: "callback",
-                swffile: "./jscam_canvas_only.swf", // canvas only doesn't implement a jpeg encoder, so the file is much smaller
+            $("#save").click(function () {
+                var hostUrl = '{{URL::route('testing.receiver')}}';
+                $.ajax({
+                    url: hostUrl,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {img: document.getElementById('img').src},
+                    timeout: 10000,
+                    success: function (data) {
+                        alert(data);
+                        if (data.indexOf("Male") != -1) alert("男だね！");
+                        if (data.indexOf("Female") != -1) alert("女だね！");
 
-                onTick: function(remain) {
-
-                    if (0 == remain) {
-                        jQuery("#status").text("Cheese!");
-                    } else {
-                        jQuery("#status").text(remain + " seconds remaining...");
+//                        window.console.log(data["face"][0]["attribute"]["age"]);
+                        var age;
+                        var gender;
+                        var glass;
+                        $.each($.parseJSON(data), function (i1, v1) {
+                            if (i1 == "face") {
+                                $.each(v1, function (i2, v2) {
+                                    if (i2 == "0") {
+                                        $.each(v2, function (i3, v3) {
+                                            window.console.log("i3 " + i3 + " v3 " + v3);
+                                            $.each(v3, function (item, value) {
+                                                window.console.log("item " + item + " value " + value);
+                                                if (item == "age") {
+                                                    age = value["value"];
+                                                    $('#age').val(age);
+                                                    window.console.log("age : " + age);
+                                                }
+                                                if (item == "gender") {
+                                                    gender = value["value"];
+                                                    if(gender=="Female") gender = "女性";
+                                                    if(gender=="Male") gender = "男性";
+                                                    $('#gender').val(gender);
+                                                    window.console.log("gender : " + gender);
+                                                }
+                                                if (item == "glass") {
+                                                    glass = value["value"];
+                                                    if(glass=="none") glass = "無し";
+                                                    if(glass!="none") glass = "有り";
+                                                    $('#glass').val(glass);
+                                                    window.console.log("glass : " + glass);
+                                                }
+                                            });
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("error");
                     }
-                },
+                });
+            })
+            ;
 
-                onSave: function(data) {
+            var video = document.getElementById('video');
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+            var localMediaStream = null;
 
-                    var col = data.split(";");
-                    // Work with the picture. Picture-data is encoded as an array of arrays... Not really nice, though =/
-                },
+            //カメラ使えるかチェック
+            var hasGetUserMedia = function () {
+                return (navigator.getUserMedia || navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia || navigator.msGetUserMedia);
+            };
 
-                onCapture: function () {
-                    webcam.save("/test.php");
+            //エラー
+            var onFailSoHard = function (e) {
+                console.log('エラー!', e);
+            };
 
-                    // Show a flash for example
-                },
-
-                debug: function (type, string) {
-                    // Write debug information to console.log() or a div, ...
-                },
-
-                onLoad: function () {
-                    // Page load
-                    var cams = webcam.getCameraList();
-                    for(var i in cams) {
-                        jQuery("#cams").append("<li>" + cams[i] + "</li>");
-                    }
+            //カメラ画像キャプチャ
+            var snapshot = function () {
+                if (localMediaStream) {
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    document.getElementById('img').src = canvas.toDataURL('image/png');
                 }
+            };
+
+            if (hasGetUserMedia()) {
+                console.log("カメラ OK");
+            } else {
+                alert("未対応ブラウザです。");
+            }
+
+            window.URL = window.URL || window.webkitURL;
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+                    navigator.mozGetUserMedia || navigator.msGetUserMedia;
+            navigator.getUserMedia({video: true}, function (stream) {
+                video.src = window.URL.createObjectURL(stream);
+                localMediaStream = stream;
+            }, onFailSoHard);
+
+            $("#capture").click(function () {
+                snapshot();
+                $('#capture_images').hidden = false;
+                $("#save").click();
+            });
+            $("#stop").click(function () {
+                localMediaStream.stop();
+            });
+            $("video").click(function () {
+                snapshot();
+                $('#capture_images').hidden = false;
             });
 
-            $("#save").on("click",function(){
-                webcam.onCapture();
-            });
-
-        });
+        })
+        ;
     </script>
 </head>
 <body>
 <div class="container">
     @include('layout.navbar')
     <div class="well center-block text-center well">
+        {{--<video id="video" autoplay width="640" height="480"></video>--}}
         @yield('contents')
     </div>
 </div>

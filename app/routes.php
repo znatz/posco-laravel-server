@@ -16,6 +16,9 @@ Route::get('/', function () {
 });
 
 Route::get('/test', ['as'=>'testing.index', 'uses'=>'testing@index']);
+Route::post('/test', ['as'=>'testing.index', 'uses'=>'testing@index']);
+Route::post('/test/receiver', ['as'=>'testing.receiver', 'uses'=>'testing@receiver']);
+Route::get('/test/receiver', ['as'=>'testing.receiver', 'uses'=>'testing@receiver']);
 
 Route::post('/iosReceiver', "iosReceiver@index");
 Route::post('/CashierReceiver', "CashierReceiver@index");
